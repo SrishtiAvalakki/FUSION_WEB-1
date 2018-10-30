@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 16, 2018 at 02:41 PM
--- Server version: 5.5.61
+-- Generation Time: Oct 30, 2018 at 08:10 AM
+-- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,6 +18,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
+CREATE DATABASE `roomies`;
+USE `roomies`;
+
+grant all privileges on *.* to 'root'@'localhost';
 --
 -- Database: `roomies`
 --
@@ -27,13 +31,8 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `groups`
 --
-CREATE DATABASE `roomies`;
-USE `roomies`;
 
-grant all privileges on *.* to 'root'@'localhost';
-
-
--- DROP TABLE IF EXISTS `groups`;
+DROP TABLE IF EXISTS `groups`;
 CREATE TABLE IF NOT EXISTS `groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
@@ -55,6 +54,19 @@ INSERT INTO `groups` (`id`, `name`, `isPrivate`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `messages`
 --
 
@@ -63,13 +75,51 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `groupId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
-  `text` 	longtext NOT NULL,
+  `text` longtext NOT NULL,
   `sentTime` datetime NOT NULL,
   `likes` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `message_fk01` (`groupId`),
   KEY `message_fk02` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) VALUES
+(1, 1, 1, 'hi', '2018-10-29 22:15:30', 0),
+(2, 1, 2, 'Hello', '2018-10-24 05:22:00', 0),
+(3, 1, 2, 'Hello', '2018-10-24 05:22:00', 0),
+(4, 1, 3, 'hi', '2018-10-30 02:13:50', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `profile`
+--
+
+DROP TABLE IF EXISTS `profile`;
+CREATE TABLE IF NOT EXISTS `profile` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `about` varchar(45) NOT NULL,
+  `fname` varchar(45) NOT NULL,
+  `lname` varchar(100) NOT NULL,
+  `hobbies` varchar(100) NOT NULL,
+  `bio` varchar(100) NOT NULL,
+  `gender` varchar(20) NOT NULL,
+  `pno` int(11) NOT NULL,
+  `country` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`id`, `about`, `fname`, `lname`, `hobbies`, `bio`, `gender`, `pno`, `country`) VALUES
+(1, 'mee', 'fgh', 'fgh', 'fghj', 'dfghj', 'fghj', 45678, 'fghj'),
+(6, 'its me srishti', 'srishti', 'avalakki', '2', 'qw', 'male', 123, 'india');
 
 -- --------------------------------------------------------
 
@@ -108,6 +158,21 @@ INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `usermessagegrouplikes`
+--
+
+DROP TABLE IF EXISTS `usermessagegrouplikes`;
+CREATE TABLE IF NOT EXISTS `usermessagegrouplikes` (
+  `userId` int(11) NOT NULL,
+  `messageId` int(11) NOT NULL,
+  PRIMARY KEY (`userId`,`messageId`),
+  KEY `UserMessageGroupLikes_fk02` (`userId`),
+  KEY `UserMessageGroupLikes_fk01` (`messageId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -140,72 +205,29 @@ INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `ge
 --
 -- Constraints for dumped tables
 --
-DROP TABLE IF EXISTS `UserMessageGroupLikes`;
-CREATE TABLE IF NOT EXISTS `UserMessageGroupLikes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
-  `messageId` int(11) NOT NULL,
-  PRIMARY KEY (`userId`,`messageId`),
-  KEY `UserMessageGroupLikes_fk02` (`userId`),
-  KEY `UserMessageGroupLikes_fk01` (`messageId`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
-
-ALTER TABLE `UserMessageGroupLikes`
-  ADD CONSTRAINT `UserMessageGroupLikes_fk02` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `UserMessageGroupLikes_fk01` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
 
 --
 -- Constraints for table `messages`
 --
 ALTER TABLE `messages`
-  ADD CONSTRAINT `message_fk02` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `message_fk01` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`);
+  ADD CONSTRAINT `message_fk01` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`),
+  ADD CONSTRAINT `message_fk02` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
 --
 -- Constraints for table `usergroupmapping`
 --
 ALTER TABLE `usergroupmapping`
-  ADD CONSTRAINT `UserGroupMapping_fk02` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`),
-  ADD CONSTRAINT `UserGroupMapping_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `UserGroupMapping_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `UserGroupMapping_fk02` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`);
+
+--
+-- Constraints for table `usermessagegrouplikes`
+--
+ALTER TABLE `usermessagegrouplikes`
+  ADD CONSTRAINT `UserMessageGroupLikes_fk01` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`),
+  ADD CONSTRAINT `UserMessageGroupLikes_fk02` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-DROP TABLE IF EXISTS `profile`;
-CREATE TABLE IF NOT EXISTS `profile` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `about` varchar(45) NOT NULL,
-  `fname` varchar(45) NOT NULL,
-  `lname` varchar(100) NOT NULL,
-  `hobbies` varchar(100) NOT NULL,
-  `bio` varchar(100) NOT NULL,
-  `gender` varchar(20) NOT NULL,
-  `pno` int(11) NOT NULL,
-  `country` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `profile`
---
-
-INSERT INTO `profile` (`id`, `about`, `fname`, `lname`, `hobbies`, `bio`, `gender`, `pno`, `country`) VALUES
-(1, 'mee', 'fgh', 'fgh', 'fghj', 'dfghj', 'fghj', 45678, 'fghj'),
-(6, 'its me srishti', 'srishti', 'avalakki', '2', 'qw', 'male', 123, 'india');
-
-DROP TABLE IF EXISTS `images`;
-CREATE TABLE IF NOT EXISTS `images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `image` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `images`
---
-
-INSERT INTO `images` (`id`, `image`) VALUES
-(7, 'IMG_0270 (2).jpg'),
-(8, 'IMG_0812.jpg');
