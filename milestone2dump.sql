@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `userId` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `sentTime` datetime NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT '0',
+  `likes` int(11) unsigned NOT NULL  DEFAULT '0' ,
   PRIMARY KEY (`id`),
   KEY `message_fk01` (`groupId`),
   KEY `message_fk02` (`userId`)
