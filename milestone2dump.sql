@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
 --
 
 INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) VALUES
-(1, 1, 1, 'hi', '2018-10-29 19:44:36', 0),
+(1, 1, 1, 'hi', '2018-10-29 19:44:36', 0);
 
 -- --------------------------------------------------------
 
@@ -166,9 +166,7 @@ CREATE TABLE IF NOT EXISTS `usermessagegrouplikes` (
   KEY `usermessagegrouplikes_fk02` (`messageId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
-ALTER TABLE `usermessagegrouplikes`
-  ADD CONSTRAINT `usermessagegrouplikes_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `usermessagegrouplikes_fk02` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
+
 
 -- Dumping data for table `usergroupmapping`
 --
@@ -241,6 +239,10 @@ ALTER TABLE `messages`
 ALTER TABLE `usergroupmapping`
   ADD CONSTRAINT `UserGroupMapping_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `UserGroupMapping_fk02` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`);
+ 
+ ALTER TABLE `usermessagegrouplikes`
+  ADD CONSTRAINT `usermessagegrouplikes_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `usermessagegrouplikes_fk02` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
