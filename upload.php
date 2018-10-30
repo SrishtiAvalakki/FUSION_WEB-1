@@ -1,4 +1,11 @@
 <?php
+session_start();
+$userId=$_SESSION["userid"];
+include 'utils/ChromePhp.php';
+if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
+    $newURL = "login/login.html";
+    header('Location: '.$newURL);
+}
   // Create database connection
   $db = mysqli_connect("localhost", "root", "", "roomies");
 
@@ -14,8 +21,12 @@
 
   	// image file directory
   	$target = "images/".basename($image);
+      echo "$userId 1111111111111111111";
 
-  	$sql = "INSERT INTO images (image) VALUES ('$image')";
+      $sql = "INSERT INTO users (image) VALUES ('$image') WHERE users.id='$userId'";
+      
+      echo "2233$userId $userId";
+
   	// execute query
   	mysqli_query($db, $sql);
 
@@ -28,7 +39,7 @@
 
 //*******************************************************************/
 //YOUR HAVE TO INCLCUDE THE USER ID SO THAT THE IMAGE CAN BE MERGED 
-$result = mysqli_query($db, "SELECT image FROM images WHERE id='7'");  
+$result = mysqli_query($db, "SELECT image FROM users WHERE users.id= '$userId'");  
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -43,7 +54,7 @@ if ($db->connect_error) {
 
 //*******************************************************************/
 //YOUR HAVE TO INCLCUDE THE USER ID SO THAT THE IMAGE CAN BE MERGED 
-$result1 = mysqli_query($db, "SELECT * FROM profile where id='6'");
+$result1 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
 
 ?>
 <!DOCTYPE html>
@@ -117,23 +128,23 @@ main {
     <?php
 
         while ($row = mysqli_fetch_array($result1)){
-        echo "<h1 class='lg-heading'>".$row['fname'] . "<span class='text-secondary'>"."  ".$row['lname']."</span></h1>";
+        echo "<h1 class='lg-heading'>User Name:".$row['username'] . "<span class='text-secondary'>  Display Name:"."  ".$row['displayName']."</span></h1>";
         }
     ?>
 
 <div class="about-info">    
-    <form method="POST" action="upload.php" enctype="multipart/form-data"-->
+    <form method="POST" action="upload.php" enctype="multipart/form-data">
     	
         <?php
-        while ($row = mysqli_fetch_array($result)) {
+        while ($row_img = mysqli_fetch_array($result)) {
         //echo "<div id='img_div'>";
-      	echo "<img src='images/".$row['image']."'class='bio-image' >";
+      	echo "<img src='images/".$row_img['image']."'class='bio-image' >";
       	//echo "<p>".$row['image_text']."</p>";
         // echo "</div>";
          }
         ?>
-        <input type="hidden" name="size" value="1000000">
-  	    <input type="file" name="image">
+        <input type="hidden" name="size" value="1000">
+  	    <input type="file" name="image"><br>
         <button type="submit" name="upload" method="POST" action="upload.php" enctype="multipart/form-data">POST</button>
          </form>
 
@@ -142,14 +153,14 @@ main {
     <div class="bio">
         
             <?php
-             while ($row = mysqli_fetch_array($result1)) {
+             while ($rowd = mysqli_fetch_array($result1)) {
       
       	        //echo "<img src='images/".$row['about']."' >";
                 //echo "<p><b>About Me:   <b>".$row['about']."</p>";
                 
-                echo "<p><b>Hobbies:    <b>".$row['hobbies']."</p>";
-                 echo "<h3 class='text-secondary'>BIO</h3><p>".$row['bio']."</p>";
-                echo "<p><b>GENDER:   <b>".$row['gender']."</p>";
+                echo "<p><b>Hobbies: <b>".$rowd['hobbies']."</p>";
+                 echo "<h3 class='text-secondary'>BIO</h3><p>".$rowd['bio']."</p>";
+                echo "<p><b>GENDER:   <b>".$rowd['gender']."</p>";
                 //echo "<p><b>Phone:     <b>".$row['pno']."</p>";
                 //echo "<p><b>COUNTRY:    <b>".$row['country']."</p>";
                 }

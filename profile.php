@@ -111,7 +111,7 @@ section:after {
 
 <header>
   <h2>PROFILE</h2>
-  <button class="button button1" id= "btn-edit" type="button" onclick="window.location.href='profileedit.html'">EDIT !</button>
+  <button class="button button1" id= "btn-edit" type="button" onclick="window.location.href='profileedit.php'">EDIT !</button>
 </header>
   <nav>     
   <div id=box>
@@ -130,7 +130,10 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-$result = mysqli_query($conn, "SELECT * FROM profile where id='1'");
+session_start();
+$userId=$_SESSION["userid"];
+include 'utils/ChromePhp.php';
+$result = mysqli_query($conn, "SELECT * FROM users where id=$userId");
 
 //$sql = "SELECT about,fname,lname,hobbies,bio,gender,pno,country FROM profile";
 //$result = $conn->query($sql);
@@ -150,13 +153,13 @@ $result = mysqli_query($conn, "SELECT * FROM profile where id='1'");
     while ($row = mysqli_fetch_array($result)) {
       echo "<div id='profile_id'>";
       	//echo "<img src='images/".$row['about']."' >";
-          echo "<p><b>About Me:   <b>".$row['about']."</p>";
-          echo "<p><b>FirstName:  <b>".$row['fname']."</p>";
-          echo "<p><b>LastName:   <b> ".$row['lname']."</p>";
+          echo "<p><b>About Me:   <b>".$row['username']."</p>";
+          echo "<p><b>Display Name  <b>".$row['displayName']."</p>";
+          echo "<p><b>Email ID   <b> ".$row['emailId']."</p>";
           echo "<p><b>Hobbies:    <b>".$row['hobbies']."</p>";
           echo "<p><b>BIO:      <b>".$row['bio']."</p>";
           echo "<p><b>GENDER:   <b>".$row['gender']."</p>";
-          echo "<p><b>Phone:     <b>".$row['pno']."</p>";
+          echo "<p><b>Phone:     <b>".$row['dob']."</p>";
           echo "<p><b>COUNTRY:    <b>".$row['country']."</p>";
       echo "</div>";
     }

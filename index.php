@@ -27,7 +27,7 @@ if(isset($_GET["groups"]))
 								</a>
 							</div>
 							<div class="tabs" style="float: right;">
-								<a href="profile.php">Edit Profile</a>
+							<a href="up.php">Profile</a>
 								<a href="groups/groups.php">Create Group</a>
 								
 								<a href="login/login.html">Sign Out</a>
