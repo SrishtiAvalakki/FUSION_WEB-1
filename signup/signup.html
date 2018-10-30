@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<style>
+    input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+}
+
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+}
+
+input[type=submit] {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+     
+}
+
+  input[type=submit]:hover {
+  background-color: #45a049;
+}
+ 
+div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.headingText {
+    text-align: left;
+    padding-left: 20px;
+    font-family: 'Comic Sans MS'
+}
+
+body {
+   /* background-color: #3598DC; */
+   background-image: url(../bg-image.jpg);
+   background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    background-size: cover;
+}
+
+.outerBox {
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 5%;
+}
+
+.loginLink {
+    text-align: center;
+    width: 100%;
+    text-decoration: underline;    
+}
+
+</style>
+
+<body >
+    <div class="outerBox">
+        <h1 class="headingText">Sign Up</h1>
+        <span style="text-align: center;padding-left: 20px;">Please fill in the form to create an account!</span>
+        <div class="w3-col m6 w3-dark-grey w3-center">
+            <form action="userDetails.php" method="post">
+
+                <input type="text" id="user" name="username" placeholder="Username">
+
+                <input type="text" id="email" name="emailid" placeholder="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required title="somthing@someserver.com">
+
+                <input type="password" id="pass" name="password" placeholder="Password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"   required title="Password (UpperCase, LowerCase, Number/SpecialChar and min 8 Chars)">
+
+                <p> GENDER: </p>
+                <input type="radio" name="gender" value="male" checked> Male<br>
+
+                <input type="radio" name="gender" value="female"> Female<br>
+                Date of Birth:
+                <input type="date" name="dob">
+
+                <input type="submit" value="Sign Up" class="signup" name="submit">
+
+            </form>
+        </div>
+        <span style="text-align: center ; width: 100% ; display: block">
+                Already have an account?
+                <a class="loginLink" href="../login/login.html"> Login here</a>
+            </span>
+    </div>
+</body>
+</html>
