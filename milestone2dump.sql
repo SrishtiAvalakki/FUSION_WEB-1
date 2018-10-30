@@ -101,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `messages` (
 
 INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) VALUES
 (1, 1, 1, 'hi', '2018-10-29 19:44:36', 0),
-(1, 1, 2, 'wassup', '2018-10-29 19:44:36', 0);
 
 -- --------------------------------------------------------
 
