@@ -2,7 +2,7 @@
          require('../login/loginPage.php');
          require('../utils/connection.php');
          $userId= $_SESSION["userid"];
-
+        $groupId=$_SESSION["groupid"];
         // var_dump($_POST);
         if(isset($_POST['submitmsg']))
         {
@@ -79,30 +79,43 @@
         
         if(isset($_POST["likes"]))  {
           
-            // echo $_POST["value"];
+            // echo $_POST["likes"];
             // require('../login/loginPage.php');
             // require('../login/loginPage.php');
             // echo $_SESSION["userid"];
-            
-            $updateLikes="UPDATE `messages` SET `likes`=`likes`+1 WHERE userId='$userId';"; 
+            $msgId=$_POST["likes"];
+            // echo $msgId;
+            $updateLikes="UPDATE `messages` SET `likes`=`likes`+1 WHERE messages.id=$msgId;";
+            $addQuery = "INSERT INTO `usermessagegrouplikes`(`userId`, `messageId`) VALUES ($userId,$msgId)"; 
             $addUserLikes="SELECT messages.id, if((SELECT COUNT(*) 
             from usermessagegrouplikes 
             where usermessagegrouplikes.userId = users.id
             and messageId = messages.id), \"TRUE\", \"FALSE\") as `AlreadyLiked?` from messages;"; 
-            $result = $conn->query($updateLikes);
+            // $result = $conn->query($updateLikes);
+            $resultQuery = $conn -> query($addQuery);
             // echo $result;
-            $result1 = $conn->query($addUserLikes);
+            if($resultQuery) {
+                $result = $conn->query($updateLikes);
+            }
+           //  $result1 = $conn->query($addUserLikes);
             // echo $result1;
         }
         if(isset($_POST["dislikes"]))  {
-            $updateLikes="UPDATE `messages` SET `likes`=`likes`-1 WHERE userId='$userId';"; 
+            $msgId = $_POST["dislikes"];
+            // echo $msgId;
+            $updateLikes="UPDATE `messages` SET `likes`=`likes`-1 WHERE messages.id='$msgId';";  
             $addUserLikes="SELECT messages.id, if((SELECT COUNT(*) 
             from usermessagegrouplikes 
             where usermessagegrouplikes.userId = users.id
             and messageId = messages.id), \"TRUE\", \"FALSE\") as `AlreadyLiked?` from messages;"; 
-            $result = $conn->query($updateLikes);
+           // $result = $conn->query($updateLikes);
+            $deleteLike = "DELETE FROM `usermessagegrouplikes` WHERE `messageId`=$msgId and `userId`=$userId;";
             //  echo $result;
-            $result1 = $conn->query($addUserLikes);
+          //  $result1 = $conn->query($addUserLikes);
+            $deleteResult = $conn -> query($deleteLike);
+            if($deleteResult){
+                $result = $conn->query($updateLikes);
+            }
            // echo $result1;
         }
 ?>
@@ -128,10 +141,10 @@
                     <span class="message-text" style="float:right;clear:right;" >'.htmlspecialchars($row['text']).'</span>
                     <span class="time-right" style = "clear:right;" >'.$row['sentTime'].'</span>
                     <form action = "" method ="POST">
-                    <button name = "likes" value="messages.id">
-                    <i style="padding: 10px;" class="fa fa-thumbs-up" value="1"></i>
+                    <button name = "likes" value='.$row['id'].'>
+                    <i style="padding: 10px;" class="fa fa-thumbs-up" value='.$row['id'].'></i>
                     </button>
-                    <button name = "dislikes" value="messages.id">
+                    <button name = "dislikes" value="'.$row['id'].'">
                     <i style="padding: 10px;" class="fa fa-thumbs-down" value="0"></i></button>'.$row['likes'].'
                     </form>
                     </div>
@@ -144,10 +157,10 @@
                 <span class="message-text" style="float:left;clear:left;" >'.htmlspecialchars($row['text']).'</span>
                 <span class="time-left" style="clear:left;" >'.$row['sentTime'].'</span>
                 <form action = "" method ="POST">
-                    <button name = "likes" value="messages.id">
+                    <button name = "likes" value="'.$row['id'].'">
                     <i style="padding: 10px;" class="fa fa-thumbs-up" value="1"></i>
                     </button>
-                    <button name = "dislikes" value="messages.id">
+                    <button name = "dislikes" value="'.$row['id'].'">
                     <i style="padding: 10px;" class="fa fa-thumbs-down" value="0"></i></button>'.$row['likes'].'
                     </button>
                     </form>
@@ -163,7 +176,7 @@
             </div>
         <form name="message" class="messageForm" action="" method = "POST">
         <div>
-            <textarea name="usermsg" style="width: 90%; height: 10%; float:left;" id="usermsg"></textarea>
+            <textarea name="usermsg" style="width: 90%; height: 500px; float:left;" id="usermsg"></textarea>
             <input name="submitmsg" type="submit" class="btn btn-success btn-lg" id="submitmsg" value="Send" />
         </div>
         </form>

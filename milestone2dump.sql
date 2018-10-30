@@ -158,7 +158,18 @@ CREATE TABLE IF NOT EXISTS `usergroupmapping` (
   KEY `UserGroupMapping_fk02` (`groupId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
---
+CREATE TABLE IF NOT EXISTS `usermessagegrouplikes` (
+  `userId` int(11) NOT NULL,
+  `messageId` int(11) NOT NULL,
+  PRIMARY KEY (`userId`,`messageId`),
+  KEY `usermessagegrouplikes_fk01` (`userId`),
+  KEY `usermessagegrouplikes_fk02` (`messageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
+
+ALTER TABLE `usermessagegrouplikes`
+  ADD CONSTRAINT `usermessagegrouplikes_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `usermessagegrouplikes_fk02` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
+
 -- Dumping data for table `usergroupmapping`
 --
 
