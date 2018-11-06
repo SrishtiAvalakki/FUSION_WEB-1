@@ -3,43 +3,9 @@
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Add Group</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
-    <link rel="stylesheet" href="../styling.css">
-    <style>
-    body {
- background-color:#F9B975;
-
-}
-* {
-    box-sizing: border-box;
-}
-
-/* Create three equal columns that floats next to each other */
-.column {
-    float: left;
-    width: 33.33%;
-    padding: 10px;
-    height: 300px; /* Should be removed. Only for demonstration */
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-h1 {
-    color:white;
-    margin-left:450px;
-    margin-right:400px;
-    font-size:40px;
-    font-family:Ariel;
-}
-#myTopnav {
-    height:15%;
-}
-</style>
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
 <body>
 <div class="topnav" id="myTopnav">
 		<div class="row">
@@ -50,78 +16,59 @@ h1 {
 </div>
 <div class="row">
 
-  <div class="column">
-  </div>
-  <div class="column">
-  <form action="" method="POST">
-<div class="field">
-  <label class="label">Name of Group:</label>
-  <div class="control">
-    <input class="input" type="text" placeholder="Text input" value="">
-  </div>
-</div>
-
-<div class="field">
-  <label class="label">Add Names</label>
-  <div class="control">
- 
-    <div class="select">
-      <select>
-
-        <option>Select dropdown</option>
-       
-        <option id="users">
-       <?php
+<label class="label">Name of Group:</label>
+<input class="input" type="text" id="groupName" name="groupTitle" placeholder="Text input" value="" required>
+<br>
+<label class="label">Group Type:</label>
+<br>
+<label>
+    <input type="radio" name="isPrivate" value="Public" checked>Public</label>
+<br>
+<label><input type="radio" name="isPrivate" value="Private">Private</label>
+<br>
+<label class="label">Add Names:</label>
+<br>
+<?php
        require('../utils/connection.php');
-       $displayNames="SELECT username FROM `users`;";
+       $displayNames="SELECT * FROM `users`;";
        $result = $conn->query($displayNames);
        if ($result-> num_rows > 0) {
         foreach($result as $rows) {
-          echo "<option>".$rows['username']."</option>";
+          echo  '<input type="checkbox"  value='.$rows['username'].' id="'.$rows['id'].'" name="members">
+                <label>'.$rows['username'].'</label>';
+          echo '<br>';
         }
     }
-    
-       ?>
-        
-      </select>
-    </div>
-  </div>
-</div>
-
-<div class="field is-grouped">
-  <div class="control">
-    <button class="button is-link">Submit</button>
-  </div>
-  <div class="control">
-    <a href="../index.php" style="color:black"><u>Cancel</u></a>
-  </div>
-  
-</div>
-
-<div id="content">
-<?php 
-include '../login/loginPage.php';
-// require('../utils/connection.php');
-$userId = $_SESSION["userid"];
-$groupId = $_SESSION["groupid"];
-echo $userId;
-$displayUsers="select username from `users` where id=(SELECT id FROM `users` WHERE username like \"Tow Mater\");"; 
-$result1 = $conn->query($displayUsers);
-while($row1=mysqli_fetch_array($result1)){
-  echo "<div id='user1'>";
-  echo "<p>".$row1['username']."</p>";
-  echo "</div>";
-}
 ?>
-</div>
-</form>
-  </div>
-  
-  
-  <div class="column">
+<script>
     
-  </div>
-  
+$(document).ready(function() {
+    $('#create_group').click(function() {
+        var title = $('#groupName').val();
+        var groupType = $("input[name='isPrivate']:checked").val();
+        var usersGroup = "";
+        $.each($("input[name='members']:checked"), function(){            
+                //usersGroup.push($(this).attr('id'));
+                usersGroup = $(this).attr('id');
+                $.ajax({
+                    url:'data.php',
+                    data:{'title':title,'groupType':groupType,'usersgroup':usersGroup},
+                    method:'post',
+                    datatype:'text',
+                    success:function(data){
+                        // console.log(data);
+                    }
+                });
+                $(document).ajaxStop(function(){
+                    window.location.reload();
+                });
+            });
+
+    });
+});
+</script>
+<button class="button is-link" id = 'create_group' name="Submit">Submit</button>
+<a href="../index.php" style="color:black"><u>Cancel</u></a>
 </div>
 </body>
 </html>

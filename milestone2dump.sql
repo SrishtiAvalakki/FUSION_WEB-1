@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `groups` (
 INSERT INTO `groups` (`id`, `name`, `isPrivate`) VALUES
 (1, 'Global', 0),
 (2, 'PrivateGroup_Apt1', 1),
-(3, 'PrivateGroup_Apt2', 2);
+(3, 'PrivateGroup_Apt2', 1);
 
 -- --------------------------------------------------------
 
@@ -107,6 +107,21 @@ INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) 
 --
 -- Table structure for table `profile`
 --
+DROP TABLE IF EXISTS `posts`;
+CREATE TABLE IF NOT EXISTS `posts` (
+  `messageId` int(11) NOT NULL AUTO_INCREMENT,
+  `userId` int(11) NOT NULL,
+  `text` longtext NOT NULL,
+  `sentTime` datetime NOT NULL,
+  `likes` int(11) unsigned NOT NULL  DEFAULT '0' ,
+  PRIMARY KEY (`messageId`),
+  KEY `posts_fk01` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+
+INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('1','hello','2018-10-29 19:45:36');
+INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('2','wassup','2018-10-29 19:46:36');
+INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('3','how are you','2018-10-29 19:47:36');
+INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('4','How you doing','2018-10-29 19:50:36');
 
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
@@ -153,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `usergroupmapping` (
   `userId` int(11) NOT NULL,
   `groupId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `id` (`userId`,`groupId`),
   KEY `UserGroupMapping_fk01` (`userId`),
   KEY `UserGroupMapping_fk02` (`groupId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
@@ -233,6 +248,8 @@ ALTER TABLE `messages`
   ADD CONSTRAINT `message_fk01` FOREIGN KEY (`groupId`) REFERENCES `groups` (`id`),
   ADD CONSTRAINT `message_fk02` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
 --
 -- Constraints for table `usergroupmapping`
 --
