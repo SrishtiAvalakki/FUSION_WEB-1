@@ -1,4 +1,5 @@
 <?php
+require("../utils/connection.php");
 $title = $_POST['title'];
 $userGroup = $_POST['usersgroup'];
 $groupType  = $_POST['groupType'];
