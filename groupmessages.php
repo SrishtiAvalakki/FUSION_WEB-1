@@ -15,7 +15,7 @@ if(isset($_GET['groupid'])) {
         }
     }
     else {
-        echo json_encode("No Messages"+"<br>");
+         echo json_encode('No Message');
     }
  
  }
