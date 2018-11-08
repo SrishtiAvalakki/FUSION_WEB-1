@@ -52,7 +52,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                     });
             $(document).on('click','.link',function() {
                     var group_id = $(this).attr('id');
-                    var str="<div><textarea class='textbox' name='usermsg' style='margin-left:13% float:left;' id='usermsg'></textarea><input name='submitmsg' type='submit' class='btn btn-success btn-lg' id='submitmsg' value='Send'/></div>";
+                    var str="<div style='margin-left:1%;margin-top:1%'><textarea class='textbox' name='usermsg' style='float:left;' id='usermsg'></textarea><input name='submitmsg' type='submit' class='btn btn-success btn-lg' id='submitmsg' value='Send'/></div><div>";
                     $.ajax({
                         url:'groupmessages.php',
                         method:'get',
@@ -62,7 +62,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             var obj = JSON.parse(data);
                             console.log(obj['text']);
                             console.log(data);
-                            $('.chatDiv').html('<form class = "chat">'+str+"<br>"+data.replace(/\"/g, "")+'</form>');
+                            $('.chatDiv').html('<form class = "chat">'+str+"<br>"+data.replace(/\"/g, "")+'</form></div>');
                         }
                 });
             });
@@ -83,7 +83,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     </script>
 </select>
             </div>
-             <div class="chatDiv" style="margin-left:13%">
+             <div class="chatDiv" style="margin-left:15%">
             </div>
         </div>
         

@@ -68,18 +68,15 @@
     clear: both;
   }
   
-  
-  /* Fixed sidenav, full height */
-  .sidenav {
+   .sidenav {
     height: 100%;
-    width: 200px;
+    width: 15%;
     position: fixed;
     z-index: 1;
     background-color:black;
     overflow-x: hidden;
   }
   
-  /* Style the sidenav links and the dropdown button */
   .sidenav a, .dropdown-btn {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
