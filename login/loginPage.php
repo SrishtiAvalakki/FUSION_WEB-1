@@ -1,6 +1,4 @@
 <?php
-include '../utils/ChromePhp.php';
-// ChromePhp::log($_POST);
 session_start();
 if(isset($_POST['submit']))
 {
@@ -8,7 +6,6 @@ if(isset($_POST['submit']))
     $emailId = mysqli_real_escape_string($conn, $_POST['emailId']); 
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $newURL = "../index.php";
-    ChromePhp::log($_POST['submit']);
     $userLoginQuery = "SELECT * FROM `users` WHERE `emailId`= '$emailId' AND
                          `password`= '$password'";
 
@@ -18,10 +15,8 @@ if(isset($_POST['submit']))
                 $_SESSION["userid"] = $row['id'];
                 $_SESSION["groupid"] = '1';
                 $_SESSION["displayname"] = $row['displayName'];
-                ChromePhp::log($username);
-                 header('Location: '.$newURL);
+                header('Location: '.$newURL);
                  exit();
-            //   echo "Login Successful";
              } else {
                 echo "Invalid Password or User does not exist";
             }
