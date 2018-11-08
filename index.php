@@ -1,4 +1,13 @@
 <html>
+<?php
+session_start();
+if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
+    session_destroy();
+    $newURL = "login/login.html";
+    header('Location: '.$newURL);
+}
+
+?>
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="styling.css">
