@@ -5,6 +5,7 @@ $userId= $_SESSION["userid"];
 $groupId=$_SESSION["groupid"];
 
 if(isset($_GET['groupid'])) {
+    $str="";
     $groupIDs=$_GET['groupid'];
     $_SESSION["groupid"]=$groupIDs;
     $displayMessages="select messages.groupId, messages.userId, messages.text, messages.sentTime, users.displayName from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime;";
@@ -15,7 +16,7 @@ if(isset($_GET['groupid'])) {
         }
     }
     else {
-         echo json_encode('No Message');
+        echo json_encode("No Messages");
     }
  
  }
@@ -36,5 +37,4 @@ if(isset($_GET['groupid'])) {
  if(isset($_GET['msg'])) {
     echo "success";
      }
-
  ?>

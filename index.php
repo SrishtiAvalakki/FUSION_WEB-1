@@ -36,7 +36,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 			<div class="sidenav">
            <script>
            $(document).ready(function(){
-                var str = "";
+                var str = "<br>";
                     $.ajax({
                         url:'groupmessages.php',
                         method:'get',
@@ -61,7 +61,8 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         success:function(data){
                             var obj = JSON.parse(data);
                             console.log(obj['text']);
-                            $('.chatDiv').html('<form class = "chat">'+str+data+'</form>');
+                            console.log(data);
+                            $('.chatDiv').html('<form class = "chat">'+str+"<br>"+data.replace(/\"/g, "")+'</form>');
                         }
                 });
             });
