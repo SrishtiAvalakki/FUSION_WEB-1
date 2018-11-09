@@ -91,7 +91,8 @@ h3,sm-heading,{
 
 .about-info .bio-image{
     grid-area: bio-image;
-    margin: auto;
+    margin-top:0px;
+    margin-left:10px;
     height: 200px;
     width: 200px;
     border: 3px solid;
@@ -128,8 +129,8 @@ h3,sm-heading,{
 </style>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	
-        <link rel="stylesheet" type="text/css" href="styles.css">
+<!-- 	
+        <link rel="stylesheet" type="text/css" href="styles.css"> -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styling.css">
 
@@ -142,25 +143,14 @@ h3,sm-heading,{
 								<a class="navbar-brand" href="index.php"><b>FIND A ROOMIE</b></a>
 							</div>
 							<div class="nav navbar-nav navbar-right" id ="nav_list">
-								<a class="navbar-brand"href="up.php"><span class="glyphicon glyphicon-user"></span>Profile</a>
+								<a class="navbar-brand"href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit Profile</a>
 								<a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
 								
 								<a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
 							</div>
 						</div>
                 </nav>
-
-<main id="about">
-
-    <?php
-
-        while ($row = mysqli_fetch_array($result1)){
-        echo "<h1 class='lg-heading'>User Name: ".$row['username'] . "<span class='text-secondary'> Display Name:"."  ".$row['displayName']."</span></h1>";
-        echo "<h2 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, aspernatur. Necessitatibus fugit voluptate magnam molestias, quod deserunt omnis et consequuntur repellendus ut quae? Sunt aut ea voluptatum dolores repellendus exercitationem.</h2>";
-        }
-    ?>
-
-<div class="about-info">    
+                <div class="about-info">    
     <form method="POST" action="up.php" enctype="multipart/form-data">
     	
         <?php
@@ -175,6 +165,17 @@ h3,sm-heading,{
   	    <input type="file" name="image"><br>
         <button type="submit" name="upload" method="POST" action="up.php" enctype="multipart/form-data">Update</button>
          </form>
+<main id="about">
+
+    <?php
+
+        while ($row = mysqli_fetch_array($result1)){
+        echo "<h3 class='lg-heading'>User Name: ".$row['username'] . "<br><br><span class='text-secondary'> Display Name:"."  ".$row['displayName']."</span></h3>";
+        echo "<h3 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."</h3>";
+        }
+    ?>
+
+
 
 
      

@@ -1,34 +1,16 @@
 <?php
-include 'utils/ChromePhp.php';
-//require ('login/loginPage.php');
-//include 'utils/ChromePhp.php';
-
-
-
-if(isset($_POST['submit']))
-{
-    require('utils/connection.php');
-    //include 'login/loginPage.php';
-    
-    //ChromePhp::log($_POST);
-    //start_session();
-    //$userId=$_SESSION["userid"];
-    echo $_POST[username];
-    //$userQuery = "INSERT INTO `profile`(`about`, `fname`, `lname`,`hobbies`,`bio`,`gender`,`pno`,`country`) VALUES ('$_POST[about]','$_POST[firstname]','$_POST[lastname]', '$_POST[hobbies]','$_POST[bio]','$_POST[gender]','$_POST[phno]','$_POST[country]')";
-    $userQuery="UPDATE `users` SET `username`='$_POST[username]',`displayName`='$_POST[dname]',`gender`='$_POST[gender]',`about`='$_POST[about]',`hobbies`='$_POST[hobbies]',`bio`='$_POST[bio]',`pno`='$_POST[phno]',`country`='$_POST[country]' WHERE id = 6";  
-   
+if(isset($_GET['submit']))
+{           
+require('./login/loginPage.php');
+require('./utils/connection.php');
+$userId= $_SESSION["userid"];
+$groupId=$_SESSION["groupid"];
+// echo "<script>alert ('$userId')</script>";
+    $userQuery="UPDATE users SET `username`=\"$_GET[username]\",`displayName`=\"$_GET[dname]\",`gender`=\"$_GET[gender]\",`about`=\"$_GET[about]\",`hobbies`=\"$_GET[hobbies]\",`bio`=\"$_GET[bio]\",`pno`=\"$_GET[phno]\",`country`=\"$_GET[country]\" where id='$userId';";
     $result=$conn->query($userQuery);
-    //echo "$result";                               
-                                    
-    ChromePhp::log($userQuery);
-
-       if ($result==TRUE) {
-        header('Location: profile.php');
-    } else {
-        ChromePhp::log("Error: " . $userQuery . "<br>" . $conn->error);
-    }
     $conn->close();
-}
+    
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,6 +41,12 @@ header
     font-size: 35px;
     color: white;
 }
+.about-info {
+      display: grid;
+      grid-gap; 30px;
+      grid-template-areas:'bioimage bio bio' 'job1 job2 job3';
+      grid-template-columns: repeat(3,1fr);
+      }
 </style>
 </head>
 <body>
@@ -66,8 +54,11 @@ header
 <header>
   <h2>EDIT  YOUR  PROFILE</h2>
 </header>
+
+
+
 <div>
- <form action="profileedit.php" method="post">
+ <form action="#" method="get">
    
  About Me: <input type="text" id="about" name="about" placeholder="about me...!!!"><br><br>
  Display Name: <input type="text" id="about" name="dname" placeholder="Display Name"><br><br>
@@ -76,8 +67,8 @@ header
     BIO: <input type="text" id="bio" name="bio" placeholder="bio"><br><br>
     Phone no: <input type="text" id="phno" name="phno" placeholder="enter your number here"><br><br>
     Gender : 
-    <input type = "radio" name="gender" value="male"> M<br>
-    <input type = "radio" name="gender" value="female">F<br><br>
+    <input type = "radio" name="gender" value="M"> Male
+    <input type = "radio" name="gender" value="F">Female<br><br>
 
 
     <label for="country">Country: </label>
@@ -88,11 +79,11 @@ header
       <option value="india">India</option>
       <option value="afghanistan">Afghanistan</option>
      <option value="Brazil">Brazil
-     </option>
+     </option><br>
 
     </select>
-  
-    <input type="submit" name="submit" id="go">
+   <br><br> <input type="submit" name="submit"  id="submit">
+   <a href="up.php">cancel</a>
   </form>    
 </div>
 </body>
