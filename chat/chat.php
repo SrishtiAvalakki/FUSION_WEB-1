@@ -37,44 +37,6 @@
   color: darkblue;
 }
 </style>
-  <script>
- function myFunction(x) {
-    x.classList.toggle("fa-thumbs-down");
-    //  alert(x.classList.toggle("fa-thumbs-up"));
-    if(x.classList.toggle("fa-thumbs-up")) {
-     <?php
-        
-     ?>
-    
-     }
-    //  if(x)
-    //  {
-        
-    //     <?php
-    //       
-    //     $updateLikes="UPDATE `messages` SET `likes`=`likes`-1 WHERE id=1;";
-    //     $result = $conn->query($updateLikes);
-    //     ?>
-
-    //     x.classList.toggle("fa-thumbs-up");
-       
-    //  }
-    //  else 
-    //  {
-    //     <?php
-    //       require('../utils/connection.php');
-    //     $updateLikes="UPDATE `messages` SET `likes`=`likes`+ 1 WHERE id=1;";
-    //     $result = $conn->query($updateLikes);
-    //     ?>
-
-    //     x.classList.toggle("fa-thumbs-up");
-       
-    //  }
-     
-}
-
-
-  </script>
   <?php
         
         if(isset($_POST["likes"]))  {

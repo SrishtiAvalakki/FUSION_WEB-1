@@ -42,37 +42,44 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         method:'get',
                         datatype:'text',
                         data:{"groups":"groups"},
-                        success:function(data){
+                        
+                        success:function(data){    
                             var obj = JSON.parse(data);
                             obj['name'].forEach(function(e){
                                 str += "<a class = 'link' id ='"+e['id']+"'>"+e['name']+"</a>";
                             });
                           
                             $('.sidenav').html(str);
-                         
+                            
+                            //location.href = "index.php";
                         }
                        
                     });
-            $(document).on('click','.link',function() {
+            $(document).on('click','.link',function(e) {
+                var str1="<form action='#' method='POST' id='insert_message'><div style='margin:1%'><textarea class='textbox' name='usermsg' style='float:left;' id='usermsg'></textarea><input name='submitmsg' type='submit' class='btn btn-success btn-lg' id='submitmsg' value='Send'/></div></form>";
+                             $('.chatDiv').html(str1);
+                // location.reload();
                     var group_id = $(this).attr('id');
-                    var str="<form action='#' method='POST' id='insert_message'><div style='margin:1%'><textarea class='textbox' name='usermsg' style='float:left;' id='usermsg'></textarea><input name='submitmsg' type='submit' class='btn btn-success btn-lg' id='submitmsg' value='Send'/></div></div></form>";
-                    $('.chatDiv').append(str);
+                   
                  $.ajax({
                         url:'groupmessages.php',
                         datatype:'text',
                         data:{"groupid":group_id},
                         success:function(data){
-                            //console.log(data);
+                             console.log(data);
                             var JSONObject = JSON.parse(data);
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
                             //console.log(obj['text']);
-                            $('.chatDiv').append("<br><div class='container'><div id='name_tag'><div id='message_tag' required><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p>"+obj['text']+"</p><span class='time-right'></div>"+obj['sentTime']+"</span></div></div>");
+                            $('.chatDiv').append("<br><div class='container'><div id='name_tag'><div id='message_tag' required><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p><b>"+obj['displayName']+"</b>:"+obj['text']+ "</p><span class='time-right'></div></span>"+obj['likes']+"</div>"+obj['sentTime']+"</div>");
+                           
                          }
                         //  $('.chatDiv').append(str+"<br><div class='container'><div id='name_tag'><div id='message_tag'><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p>"+obj['text']+"</p><span class='time-right'></div>"+obj['sentTime']+"</span></div></div>");
                         //location.reload();
+                        
                         }
+                        
                 });
             });
             $(document).on('click','#submitmsg',function() {
@@ -94,7 +101,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     </script>
 </select>
             </div>
-             <div class="chatDiv" style="margin-left:15%">
+             <div class="chatDiv" style="margin-left:15%" id="chatDiv">
             </div>
         </div>
 </body>
