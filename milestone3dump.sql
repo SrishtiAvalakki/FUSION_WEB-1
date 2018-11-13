@@ -93,35 +93,34 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `message_fk01` (`groupId`),
   KEY `message_fk02` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messages`
 --
 
 INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) VALUES
-(1, 1, 1, 'hi', '2018-10-29 19:44:36', 0);
+(1, 1, 1, 'hi', '2018-10-29 19:44:36', 0),
+(2, 1, 2, 'hello', '2018-10-29 09:44:36' , 0),
+(3, 2, 1, 'hello', '2018-10-29 19:34:36' , 0);
 
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `profile`
 --
-DROP TABLE IF EXISTS `posts`;
-CREATE TABLE IF NOT EXISTS `posts` (
-  `messageId` int(11) NOT NULL AUTO_INCREMENT,
-  `userId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `messageId` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `sentTime` datetime NOT NULL,
   `likes` int(11) unsigned NOT NULL  DEFAULT '0' ,
-  PRIMARY KEY (`messageId`),
-  KEY `posts_fk01` (`userId`)
+  PRIMARY KEY (`id`),
+  KEY `comments_fk01` (`messageId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
-INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('1','hello','2018-10-29 19:45:36');
-INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('2','wassup','2018-10-29 19:46:36');
-INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('3','how are you','2018-10-29 19:47:36');
-INSERT INTO `posts`(`userId`, `text`, `sentTime`) VALUES ('4','How you doing','2018-10-29 19:50:36');
+
 
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
@@ -260,6 +259,9 @@ ALTER TABLE `usergroupmapping`
  ALTER TABLE `usermessagegrouplikes`
   ADD CONSTRAINT `usermessagegrouplikes_fk01` FOREIGN KEY (`userId`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `usermessagegrouplikes_fk02` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comments_fk01` FOREIGN KEY (`messageId`) REFERENCES `messages` (`id`);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

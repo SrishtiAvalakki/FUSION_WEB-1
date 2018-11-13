@@ -9,7 +9,7 @@ if(isset($_GET['groupid'])) {
     $rows = array();
     $groupIDs=$_GET['groupid'];
     $_SESSION["groupid"]=$groupIDs;
-    $displayMessages="select messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime desc;";
+    $displayMessages="select messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime desc;";
     $result = $conn->query($displayMessages);
     if ($result-> num_rows > 0) {
         while($row = $result->fetch_assoc()) {
@@ -73,5 +73,27 @@ if(isset($_GET['groupid'])) {
             $result = $conn->query($updateLikes);
         }
   }
-
+  if(isset($_POST["comment_msg"]))  {
+    $messageId=$_POST['message_id'];
+    $comment=$_POST['comment_msg'];
+    echo $comment;
+    if($comment!=NULL) {
+    $insertComment="INSERT INTO `comments`(`messageId`, `text`, `sentTime`) VALUES ($messageId,\"$comment\",now());";
+    $result1 = $conn->query($insertComment);
+    $displayMessages="SELECT * FROM `comments` where messageId=$messageId;";
+    $result = $conn->query($displayMessages);
+    if ($result-> num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+            $rows[] =$row;     
+        }
+        echo json_encode($rows);
+    }
+    else {
+        echo json_encode("No Messages");
+    }
+   // echo $result1;
+    }
+   
+    
+}
  ?>
