@@ -47,31 +47,33 @@ if(isset($_GET['groupid'])) {
     // echo "console.log('jgjkhk');";
     }
 
-    if(isset($_POST["likes"]))  {
+    if(isset($_POST['likes']))  {
         $msgId=$_POST["likes"];
-        $updateLikes="UPDATE `messages` SET `likes`=`likes`+1 WHERE messages.id=$msgId;";
-        $addQuery = "INSERT INTO `usermessagegrouplikes`(`userId`, `messageId`) VALUES ($userId,$msgId)"; 
+        $updateLikes="UPDATE `messages` SET `likes`=`likes`+1 WHERE messages.id='$msgId';";
+        $addQuery = "INSERT INTO `usermessagegrouplikes`(`userId`, `messageId`) VALUES ('$userId','$msgId');"; 
         $addUserLikes="SELECT messages.id, if((SELECT COUNT(*) 
         from usermessagegrouplikes 
         where usermessagegrouplikes.userId = users.id
         and messageId = messages.id), \"TRUE\", \"FALSE\") as `AlreadyLiked?` from messages;"; 
         $resultQuery = $conn -> query($addQuery);
         if($resultQuery) {
-            $result = $conn->query($updateLikes);
+            $result=$conn->query($updateLikes);
         }
+        echo "likes";
     }
-    if(isset($_POST["dislikes"]))  {
+    if(isset($_POST['dislikes']))  {
         $msgId = $_POST["dislikes"];
         $updateLikes="UPDATE `messages` SET `likes`=`likes`-1 WHERE messages.id='$msgId';";  
         $addUserLikes="SELECT messages.id, if((SELECT COUNT(*) 
         from usermessagegrouplikes 
         where usermessagegrouplikes.userId = users.id
         and messageId = messages.id), \"TRUE\", \"FALSE\") as `AlreadyLiked?` from messages;"; 
-        $deleteLike = "DELETE FROM `usermessagegrouplikes` WHERE `messageId`=$msgId and `userId`=$userId;";
+        $deleteLike = "DELETE FROM `usermessagegrouplikes` WHERE `messageId`='$msgId' and `userId`='$userId';";
         $deleteResult = $conn -> query($deleteLike);
         if($deleteResult){
-            $result = $conn->query($updateLikes);
+            $result=$conn->query($updateLikes);
         }
+        echo "dislikes";
   }
   if(isset($_POST["comment_msg"]))  {
     $messageId=$_POST['message_id'];
