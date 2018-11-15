@@ -167,7 +167,7 @@ h3,sm-heading,{
 							<div class="nav navbar-nav navbar-right" id ="nav_list">
 								<a class="navbar-brand"href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit Profile</a>
 								<a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
-								
+                                <a class="navbar-brand" href="search.php"><span class="glyphicon glyphicon-cog"></span>Search Users</a>
 								<a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
 							</div>
 						</div>

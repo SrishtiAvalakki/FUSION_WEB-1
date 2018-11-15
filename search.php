@@ -7,6 +7,19 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 	</head>
 	<body>
+	<nav class="navbar navbar-inverse" id="nav_bar">
+						<div class= "container-fluid">
+							<div class="navbar-header">
+								<a class="navbar-brand" href="index.php"><b>FIND A ROOMIE</b></a>
+							</div>
+							<div class="nav navbar-nav navbar-right" id ="nav_list">
+								<a class="navbar-brand"href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit Profile</a>
+								<a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
+								
+								<a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
+							</div>
+						</div>
+     </nav>
 		<div class="container">
 			<br />
 			<br />
