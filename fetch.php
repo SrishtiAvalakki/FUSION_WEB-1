@@ -8,12 +8,10 @@ if(isset($_POST["query"]))
 	SELECT * FROM users 
 	WHERE username LIKE '%".$search."%'
 	";
-}
-else{
-    $query = "
-SELECT * FROM users ORDER BY id";
-}
-$result = mysqli_query($connect, $query);
+	$result = mysqli_query($connect, $query);
+
+//else{$query = "SELECT * FROM users ORDER BY id";}
+
 if(mysqli_num_rows($result) > 0)
 {
 	$output .= '<div class="table-responsive">
@@ -35,4 +33,6 @@ else
 {
 	echo 'Data Not Found';
 }
+}
+
 ?>

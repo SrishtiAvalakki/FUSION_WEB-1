@@ -30,12 +30,17 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 								<a href="groups/groups.php">Create Group</a>
 								
 								<a href="login/login.html">Sign Out</a>
+
+                                <a href="search.php">Search Users</a>
 							</div>
 						</div>
         </div>
         <div class="row">
+        
 			<div class="sidenav">
+           
            <script>
+            
            $(document).ready(function(){
                 var str = "<br>";
                     $.ajax({
@@ -152,11 +157,17 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                 });
               });
            });
+           
     </script>
+   
 </select>
+
             </div>
+            
              <div class="chatDiv" style="margin-left:15%" id="chatDiv">
+            
             </div>
+            
         </div>
 </body>
 </html>
