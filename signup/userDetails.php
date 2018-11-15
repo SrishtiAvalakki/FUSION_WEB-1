@@ -15,9 +15,9 @@ if(isset($_POST['submit']))
        if ($conn->query($userQuery) == TRUE ) {
         echo "<script>alert (\"User signed up successfully\")</script>";
            $verifyemail="SELECT id FROM users WHERE emailId='$_POST[emailid]'";
-    $result=$conn->query($verifyemail);
-    if ($result-> num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
+         $result=$conn->query($verifyemail);
+            if($result-> num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
             //echo "<script>alert (\"Email Duplicates\")</script>";
             $res = $row['id'];
             echo "<script>console.log( 'Debug Objects: " . $res . "' );</script>";

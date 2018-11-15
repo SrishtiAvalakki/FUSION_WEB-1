@@ -4,7 +4,8 @@ $userId=$_SESSION["userid"];
 //$userId=4;
 //echo "$userId";
 include 'utils/ChromePhp.php';
-if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
+if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid']))
+{
     $newURL = "login/login.html";
     header('Location: '.$newURL);
 }
@@ -15,29 +16,50 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
   $msg = "";
 
   // If upload button is clicked ...
-  if (isset($_POST['upload'])) {
-  	// Get image name
+  
+  if (isset($_POST['upload']))
+   {
+  	
   	$image = $_FILES['image']['name'];
   	// Get text
   	//$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
 
-  	// image file directory
-  	$target = "images/".basename($image);
+      // image file directory
+      
+      $target = "images/".basename($image);
+      $types = array('image/jpeg', 'image/gif', 'image/png');
+      
+     if (in_array($_FILES['image']['type'], $types))
+       {
+        
+        // file is okay continue
+        $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
+        mysqli_query($db, $sql);
+        } 
+    else
+     {
+        echo '<script language="javascript">';
+        echo 'alert("image uploaded in the wrong format!")';
+        echo '</script>';
+       
+        } 
+    
 
       //$sql = "INSERT INTO images (image) VALUES ('$image')";
-      $sql ="UPDATE `images` SET `image`='$image'WHERE images.id='$userId'";
+     // $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
       
       
       // execute query
-        mysqli_query($db, $sql);
+       // mysqli_query($db, $sql);
 
-  	if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-  		$msg = "Image uploaded successfully";
-  	}else{
-  		$msg = "Failed to upload image";
-  	}
-  }
-  $result = mysqli_query($db, "SELECT image FROM images, users WHERE users.id='$userId'AND images.id='$userId'");
+      //if (move_uploaded_file($_FILES['image']['tmp_name'], $target))
+       //{
+  		//echo "Image uploaded successfully";
+      //}
+      //else{
+        //echo  "Failed to upload image";
+    }
+  $result = mysqli_query($db, "SELECT image FROM users  WHERE id='$userId'");
 
   $result1 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
   $result2 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
@@ -154,26 +176,25 @@ h3,sm-heading,{
     <form method="POST" action="up.php" enctype="multipart/form-data">
     	
         <?php
-        while ($row_img = mysqli_fetch_array($result)) {
-        //echo "<div id='img_div'>";
-      	echo "<img src='images/".$row_img['image']."'class='bio-image' >";
-      	//echo "<p>".$row['image_text']."</p>";
-        // echo "</div>";
+        while ($row_img = mysqli_fetch_array($result))
+         {
+      	     echo "<img src='images/".$row_img['image']."'class='bio-image' >";
          }
         ?>
         <input type="hidden" name="size" value="1000">
   	    <input type="file" name="image"><br>
         <button type="submit" name="upload" method="POST" action="up.php" enctype="multipart/form-data">Update</button>
-         </form>
-<main id="about">
+    </form>
 
-    <?php
+         <main id="about">
+
+     <?php
 
         while ($row = mysqli_fetch_array($result1)){
         echo "<h3 class='lg-heading'>User Name: ".$row['username'] . "<br><br><span class='text-secondary'> Display Name:"."  ".$row['displayName']."</span></h3>";
         echo "<h3 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."</h3>";
         }
-    ?>
+     ?>
 
 
 
