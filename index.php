@@ -30,17 +30,12 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 								<a href="groups/groups.php">Create Group</a>
 								
 								<a href="login/login.html">Sign Out</a>
-
-                                <a href="search.php">Search Users</a>
 							</div>
 						</div>
         </div>
         <div class="row">
-        
 			<div class="sidenav">
-           
            <script>
-            
            $(document).ready(function(){
                 var str = "<br>";
                     $.ajax({
@@ -76,7 +71,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
-                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div class='container' value='"+obj['id']+"'><div id='name_tag'><div id='message_tag' required><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p><b>"+obj['displayName']+"</b>:"+obj['text']+ "</p>"+obj['sentTime']+"</div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up'  value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button id='container' name='container'><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i></button></div>");
+                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag' required><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p><b>"+obj['displayName']+"</b>:"+obj['text']+ "</p><p>"+obj['sentTime']+"</p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up'  value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button id='container' name='container'><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div>");
                            }                        
                         }
                         
@@ -133,9 +128,11 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
             $(document).on('click','.comment',function() {
                 var id = $(this).attr('id');  
                 $('.message_'+id).append("<br><div class='form-group' id='messages'><form action='#' method='POST'><p><textarea class='form-control' style='width:10%; margin-left:20%' id="+id+" required></textarea><button type='submit' class='btn btn-default' id='submit_msg1' style='margin-left:30%'>Submit</button></p></form></div></div>");
+               // console.log("hell0");
             });
             
             $(document).on('click','#submit_msg1',function() {
+                
                 var id = $(".form-control").attr('id');  
                 var text_val=$(".form-control").val();
                 $.ajax({
@@ -144,30 +141,53 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         datatype:'text',
                         data:{"comment_msg":text_val,"message_id":id},
                          success:function(data){
-                            
+                            console.log("hello -- ksjfkls");
                             var JSONObject = JSON.parse(data);
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
                             // console.log(obj['text']);
-                            // console.log(obj['id']);
-                            $('#messages').append(obj['id']);
+                            //console.log(obj['id']);
+                        
+                           
                             }
                          }
                 });
               });
-           });
-           
-    </script>
-   
-</select>
+              $(document).on('click','.show_messages',function() {
+                  var mes_id=$(this).attr('id');
+                  //$(this).addClass('show');
+                  if(!($(this).hasClass('show')))
+                  {
+                  var message_idInt=parseInt(mes_id.split('_')[1]);
+                  $.ajax({
+                        url:'groupmessages.php',
+                        method:'POST',
+                        datatype:'JSON',
+                        data:{"message_idInt":message_idInt},
+                        success:function(data){
+                            var JSONObject = JSON.parse(data);
+                            var length = Object.keys(JSONObject).length;
+                            for(var i=0;i<length;i++) {
+                                console.log(JSONObject[i]);
+                          $('#m_id'+JSONObject[i]['Id']).append("<div class = 'displayComments'>"+JSONObject[i]['text']+JSONObject[i]['displayName']+"</div>");
+                        }
+                    }
+                }); 
+                $(this).addClass('show');
+                  }else{
+                      $('.displayComments').hide();
+                      $(this).removeClass('show');
+                  } 
 
+
+              });
+           });
+    </script>
+</select>
             </div>
-            
              <div class="chatDiv" style="margin-left:15%" id="chatDiv">
-            
             </div>
-            
         </div>
 </body>
 </html>
