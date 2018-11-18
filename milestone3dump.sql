@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `gender`, `dob`, `about`, `hobbies`, `bio`, `pno`, `country`, `image`) VALUES
-(0, 'admin', 'admin', 'admin', 'admin@odu.edu', 'F', '2018-11-12', 'NULL', 'NULL', 'NULL', 123456789, 'NULL', 'null'),
+(0, 'admin', 'admin', '@admin', 'admin@odu.edu', 'F', '2018-11-12', 'NULL', 'NULL', 'NULL', 123456789, 'NULL', 'null'),
 (1, 'Tow Mater', 'Tow Mater', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', '', '', '', 0, '', 'EBVH1298.JPG'),
 (2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'tom_and_jerry_PNG53.png'),
 (3, 'Doc Hudson', 'Doc Hudson', '@doc', 'hornet@rsprings.gov', 'M', '2009-10-18', '', '', '', 0, '', '35.jpg'),
