@@ -28,7 +28,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							<div class="tabs" style="float: right;">
 							<a href="up.php">Profile</a>
 								<a href="groups/groups.php">Create Group</a>
-								
+								<a href="help.html">Help</a>
 								<a href="login/login.html">Sign Out</a>
 							</div>
 						</div>
@@ -73,7 +73,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
                             if(obj['displayName']!=null){
-                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag'><img src='bg-image.jpg' alt='Avatar' style='width:90%;'><b>"+obj['displayName']+"</b>:<pre>"+obj['text']+ "</pre><p>"+obj['sentTime']+"</p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div></div>");
+                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag'><img src='bg-image.jpg' alt='Avatar' style='width:90%;'><b>"+obj['displayName']+"</b>:<pre>"+obj['text']+ "</pre><br/><p><small><sub>"+obj['sentTime']+"</sub></small></p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px;margin-right:5px;'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div></div><br/><br/>");
                            } else {
                             $('.chatDiv').append("<p><br/>"+"No Messages"+"</p>");
                             break;
