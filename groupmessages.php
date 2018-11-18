@@ -28,7 +28,7 @@ if(isset($_GET['groupid'])) {
     $rows = array();
     $groupIDs=$_GET['groupid'];
     $_SESSION["groupid"]=$groupIDs;
-    $displayMessages="select messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime desc;";
+    $displayMessages="select messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName, users.image from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime desc;";
     $result = $conn->query($displayMessages);
     if ($result-> num_rows > 0) {
         while($row = $result->fetch_assoc()) {

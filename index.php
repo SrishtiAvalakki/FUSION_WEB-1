@@ -67,13 +67,20 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         datatype:'text',
                         data:{"groupid":group_id},
                         success:function(data){
+
                             var JSONObject = JSON.parse(data);
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
-                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag' required><img src='images/IMG_0812.jpg' alt='Avatar' style='width:90%;'><p><b>"+obj['displayName']+"</b>:"+obj['text']+ "</p><p>"+obj['sentTime']+"</p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up'  value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button id='container' name='container'><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div>");
-                           }                        
+                            if(obj['displayName']!=null){
+                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag'><img src='bg-image.jpg' alt='Avatar' style='width:90%;'><b>"+obj['displayName']+"</b>:<pre>"+obj['text']+ "</pre><p>"+obj['sentTime']+"</p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div></div>");
+                           } else {
+                            $('.chatDiv').append("<p><br/>"+"No Messages"+"</p>");
+                            break;
+                           }
+                            }                        
                         }
+
                         
                 });
             });
@@ -126,9 +133,15 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
             });
 
             $(document).on('click','.comment',function() {
-                var id = $(this).attr('id');  
-                $('.message_'+id).append("<br><div class='form-group' id='messages'><form action='#' method='POST'><p><textarea class='form-control' style='width:10%; margin-left:20%' id="+id+" required></textarea><button type='submit' class='btn btn-default' id='submit_msg1' style='margin-left:30%'>Submit</button></p></form></div></div>");
-               // console.log("hell0");
+                var id = $(this).attr('id'); 
+                if(!($(this).hasClass('show1')))
+                  { 
+                    $('.message_'+id).append("<br><div class='form-group' id='messages'><form action='#' method='POST'><p><textarea class='form-control' style='width:10%; margin-left:20%' id="+id+" required></textarea><button type='submit' class='btn btn-default' id='submit_msg1' style='margin-left:30%'>Submit</button></p></form></div></div>");
+                    $(this).addClass('show1');
+                  } else {
+                      $('.form-group').hide();
+                      $(this).removeClass('show1');
+                  } 
             });
             
             $(document).on('click','#submit_msg1',function() {

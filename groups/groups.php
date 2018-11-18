@@ -35,7 +35,7 @@
 <br>
 <?php
        require('../utils/connection.php');
-       $displayNames="SELECT * FROM `users` where id != '$userId';";
+       $displayNames="SELECT * FROM `users` where id != '$userId' and id!='0';";
        $result = $conn->query($displayNames);
        if ($result-> num_rows > 0) {
         foreach($result as $rows) {

@@ -24,11 +24,11 @@
 			<br />
 			<br />
 			<br />
-			<h2 align="center">Find your new Roomie here!</h2><br />
+			<h2 style="align:center">Find your new Roomie here!</h2><br />
 			<div class="form-group">
 				<div class="input-group">
 			
-					<span class="input-group-addon">Search</span>
+					<span class="input-group-addon" id="display_noUsers">Search</span>
 				
 					<input type="text" name="search_text" id="search_text" placeholder="Search by User Name" class="form-control" />
 				</div>
@@ -55,11 +55,21 @@ $(document).ready(function(){
 			url:"fetch.php",
 			method:"post",
 			data:{query:query},
+			datatype:'JSON',
 			success:function(data)
 			{
-				$('#result').html(data);
+				console.log(data);
+				if(data!= null) {
+				var JSONObject = JSON.parse(data);
+            	console.log(JSONObject['id']);
+				$('#result').html("<div class='names' id=name_id"+JSONObject['id']+">"+JSONObject['displayName']+"</div>");
+			}
+			else if(data==="No Users"){
+				$('#result').html("<p>"+"No Messages"+"</p>");
+			}
 			}
 		});
+		
 	}
 	
 	$('#search_text').keyup(function(){
@@ -74,8 +84,29 @@ $(document).ready(function(){
 		}
 	});
 });
+$(document).on('click','.names',function() {
+	var id = $(this).attr('id'); 
+	var userdetailsID=parseInt(id.split('id')[1]);
+	//console.log(userdetailsID);
+                 $.ajax({
+                        url:'fetch.php',
+                        datatype:'text',
+						method:'POST',
+                        data:{"userdetailsID":userdetailsID},
+						success:function(data)
+						{
+							if(data!="No Users") {
+							var JSONObject = JSON.parse(data);
+            				//console.log(JSONObject['id']);
+							$('#result').append("<div class='names' id=name_id"+JSONObject['id']+">"+JSONObject['displayName']+"<br>Email:"+JSONObject['emailId']+JSONObject['about']+JSONObject['hobbies']+"</div>");
+							} 
+							else
+							{
+								$('#display_noUsers').append("<p>"+data+"</p>");
+							}
+						}
+                });
+            });
 </script>
-
-
 
 

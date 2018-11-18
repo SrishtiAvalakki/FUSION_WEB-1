@@ -12,12 +12,20 @@ if(isset($_POST['submit']))
             $result = $conn->query($userLoginQuery);            
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
+                if($row['username']==="admin"){
+                    $_SESSION["userid"] = 0;
+                    $_SESSION["displayname"] = $row['displayName'];
+                    header('Location: '.$newURL);
+                   exit();
+                }else {
                 $_SESSION["userid"] = $row['id'];
                 $_SESSION["groupid"] = '1';
                 $_SESSION["displayname"] = $row['displayName'];
                 header('Location: '.$newURL);
                  exit();
-             } else {
+             }
+            }
+              else {
                 echo "Invalid Password or User does not exist";
             }
             $conn->close();

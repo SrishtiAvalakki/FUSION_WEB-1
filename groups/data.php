@@ -16,10 +16,12 @@ if($groupType==="Public") {
      $result = $conn->query($addGroup);
 
      $addSessionUser="INSERT INTO `usergroupmapping`(`userId`,`groupId`) VALUES ('$userId',(SELECT `id` FROM `groups` WHERE `name` = '$title'));";
+     $addSessionUser1="INSERT INTO `usergroupmapping`(`userId`,`groupId`) VALUES (0,(SELECT `id` FROM `groups` WHERE `name` = '$title'));";
      $result2 = $conn->query($addSessionUser);
-
+     $result3 = $conn->query($addSessionUser1);
      $addUIDGID="INSERT INTO `usergroupmapping`(`userId`,`groupId`) VALUES ('$userGroup',(SELECT `id` FROM `groups` WHERE `name` = '$title'));";
-    //  $groupUIDGID="INSERT INTO `usergroupmapping`(`userId`, `groupId`) VALUES ((SELECT id FROM `users` where username LIKE '$userGroup'),(SELECT `id` FROM `groups` WHERE `name` LIKE '$title'))";
-    $result1 = $conn->query($addUIDGID);
+     $addUIDGID1="INSERT INTO `usergroupmapping`(`userId`,`groupId`) VALUES (0,(SELECT `id` FROM `groups` WHERE `name` = '$title'));";
+     $result1 = $conn->query($addUIDGID);
+     $result4=$conn->query($addUIDGID1);
      echo "success";
  ?>
