@@ -12,12 +12,14 @@ if(isset($_POST['submit']))
             $result = $conn->query($userLoginQuery);            
             if ($result->num_rows > 0) {
                 $row = $result->fetch_assoc();
-                if($row['username']==="admin"){
+                if($row['id']==='0'){
+                    $newURL1="../admin.php";
                     $_SESSION["userid"] = 0;
                     $_SESSION["displayname"] = $row['displayName'];
-                    header('Location: '.$newURL);
+                    header('Location: '.$newURL1);
                    exit();
-                }else {
+                }
+                else {
                 $_SESSION["userid"] = $row['id'];
                 $_SESSION["groupid"] = '1';
                 $_SESSION["displayname"] = $row['displayName'];
