@@ -159,7 +159,7 @@ h3,sm-heading,{
 </head>
 <body>
 
-				<nav class="navbar navbar-inverse" id="nav_bar">
+				    <nav class="navbar navbar-inverse" id="nav_bar">
 						<div class= "container-fluid">
 							<div class="navbar-header">
 								<a class="navbar-brand" href="index.php"><b>FIND A ROOMIE</b></a>
@@ -171,7 +171,7 @@ h3,sm-heading,{
 								<a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
 							</div>
 						</div>
-                </nav>
+                    </nav>
                 <div class="about-info">    
     <form method="POST" action="up.php" enctype="multipart/form-data">
     	
