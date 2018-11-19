@@ -101,21 +101,22 @@ CREATE TABLE IF NOT EXISTS `usergroupmapping` (
 --
 
 INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
-(12, 0, 1),
-(13, 0, 2),
-(14, 0, 3),
-(1, 1, 1),
-(6, 1, 2),
-(2, 2, 1),
-(7, 2, 2),
-(3, 3, 1),
-(8, 3, 2),
-(11, 3, 3),
-(4, 4, 1),
-(9, 4, 3),
-(5, 5, 1),
-(10, 5, 3);
-
+(1, 0, 1),
+(2, 1, 1),
+(3, 2, 1),
+(4, 3, 1),
+(5, 4, 1),
+(6, 5, 1),
+(7, 6, 1),
+(8, 1, 2),
+(9, 2, 2),
+(10, 3, 3),
+(11, 4, 2),
+(12, 5, 3),
+(13, 6, 2),
+(14, 3, 2),
+(15, 0, 2),
+(16, 0, 3);
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (

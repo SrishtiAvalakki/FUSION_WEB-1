@@ -39,7 +39,7 @@
        $result = $conn->query($displayNames);
        if ($result-> num_rows > 0) {
         foreach($result as $rows) {
-          echo  '<input type="checkbox"  value='.$rows['username'].' id="'.$rows['id'].'" name="members">
+          echo  '<input type="checkbox" value='.$rows['username'].' id="'.$rows['id'].'" name="members">
                 <label>'.$rows['username'].'</label>';
           echo '<br>';
         }
