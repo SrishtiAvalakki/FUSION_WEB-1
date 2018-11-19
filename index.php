@@ -9,6 +9,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 
 ?>
     <head>
+    
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="styling.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,7 +22,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 <div class="topnav" id="myTopnav">
 						<div class="row" >
 							<div class="topic">
-								<a href="#" style="font-size: 17px; font-family: 'Comic Sans MS'">
+								<a href="search.php" style="font-size: 17px; font-family: 'Comic Sans MS'">
 									<b>FIND A ROOMIE</b>
 								</a>
 							</div>
@@ -73,7 +74,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
                             if(obj['displayName']!=null){
-                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'><div id='name_tag'><div id='message_tag'><img src='bg-image.jpg' alt='Avatar' style='width:90%;'><b>"+obj['displayName']+"</b>:<pre>"+obj['text']+ "</pre><br/><p><small><sub>"+obj['sentTime']+"</sub></small></p></div></div><button id = 'likes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px;margin-right:5px;'></i><button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button></div></div></div><br/><br/>");
+                            $('.chatDiv').append("<div class = message_"+obj['id']+"><br></div><div id='m_id"+obj['id']+"'value='"+obj['id']+"'></div><div class='container'><div id='name_tag'><div id='message_tag'></div><img src='bg-image.jpg' alt='Avatar' style='width:90%;'><b>"+obj['displayName']+"</b>:<pre>"+obj['text']+ "</pre><br/><p><small><sub>"+obj['sentTime']+"</sub></small></p></div><br/><button id = 'likes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px;margin-top:5px' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 5px;margin-left:5px;margin-top:5px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px;padding:0px;margin-right:5px;margin-bottom:5px'></i><button class='show_messages' id='show_"+obj['id']+"'><label> Show Messages</label></button></button></div></div></div><br/><br/>");
                            } else {
                             $('.chatDiv').append("<p><br/>"+"No Messages"+"</p>");
                             break;
@@ -136,7 +137,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                 var id = $(this).attr('id'); 
                 if(!($(this).hasClass('show1')))
                   { 
-                    $('.message_'+id).append("<br><div class='form-group' id='messages'><form action='#' method='POST'><p><textarea class='form-control' style='width:10%; margin-left:20%' id="+id+" required></textarea><button type='submit' class='btn btn-default' id='submit_msg1' style='margin-left:30%'>Submit</button></p></form></div></div>");
+                    $('.message_'+id).append("<br><div class='form-group' id='messages'><form action='#' method='POST'><p><textarea class='form-control' style='width:10%; margin-left:20%; margin-top: 5px' id="+id+" required></textarea><button type='submit' class='btn btn-default' id='submit_msg1' style='margin-left:30%'>Submit</button></p></form></div></div>");
                     $(this).addClass('show1');
                   } else {
                       $('.form-group').hide();
@@ -199,7 +200,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     </script>
 </select>
             </div>
-             <div class="chatDiv" style="margin-left:15%" id="chatDiv">
+             <div class="chatDiv" style="margin-left:15%; margin-top:5px" id="chatDiv">
             </div>
         </div>
 </body>
