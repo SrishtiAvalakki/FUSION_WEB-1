@@ -27,8 +27,9 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 								</a>
 							</div>
 							<div class="tabs" style="float: right;">
-							<a href="up.php">Profile</a>
+							<a href="newup.php">Profile</a>
 								<a href="groups/groups.php">Create Group</a>
+                                <a class="navbar-brand" href="search.php"><span class="glyphicon glyphicon-search"></span>Search Users</a>
 								<a href="help.html">Help</a>
 								<a href="login/login.html">Sign Out</a>
 							</div>
