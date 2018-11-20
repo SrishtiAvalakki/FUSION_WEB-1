@@ -25,16 +25,17 @@ if(isset($_POST['group__id'])) {
  }
 if(isset($_GET['groupid'])) {
     $str="";
-    $rows = array();
+    //$rows = array();
     $groupIDs=$_GET['groupid'];
     $_SESSION["groupid"]=$groupIDs;
-    $displayMessages="select messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName, users.image from messages, users where messages.userId = users.id and messages.groupid =$groupIDs order by messages.sentTime desc;";
+    $displayMessages="select groups.isArchived,messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName, users.image from messages, users,groups where messages.userId = users.id and messages.groupid =$groupIDs and groups.id=$groupIDs order by messages.sentTime desc;";
     $result = $conn->query($displayMessages);
+    $response=[];
     if ($result-> num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            $rows[] =$row;     
+            $response[] =$row;     
         }
-        echo json_encode($rows);
+        echo json_encode($response);
     }
     else {
         echo json_encode("No Messages");
@@ -58,9 +59,9 @@ if(isset($_GET['groupid'])) {
 
  if(isset($_POST['msg'])) {
     
-    $message=$_POST['msg'];
+    $message = mysqli_real_escape_string($conn,$_POST['msg']);
     $insertQuery = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$message', now());";            
-    $insertResult = $conn->query($insertQuery);       
+    $resultQuery = $conn -> query($insertQuery);   
     //echo "success";
     //echo "<script>alert()</script>";
     // echo "console.log('jgjkhk');";
@@ -97,8 +98,8 @@ if(isset($_GET['groupid'])) {
   if(isset($_POST["comment_msg"]))  {
     
     $messageId=$_POST['message_id'];
-    $comment=$_POST['comment_msg'];
-    echo $comment;
+    $comment = mysqli_real_escape_string($conn,$_POST['comment_msg']);
+   // echo $comment;
     if($comment!=NULL) {
     $insertComment="INSERT INTO `comments`(`messageId`, `text`, `sentTime`) VALUES ($messageId,\"$comment\",now());";
     $result1 = $conn->query($insertComment);

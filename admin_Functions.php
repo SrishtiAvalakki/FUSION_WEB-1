@@ -75,7 +75,7 @@ if(isset($_GET['groupid'])) {
 
  if(isset($_POST['msg'])) {
     
-    $message=$_POST['msg'];
+    $message = mysqli_real_escape_string($conn,$_POST['msg']);
     $insertQuery = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$message', now());";            
     $insertResult = $conn->query($insertQuery);       
     //echo "success";
@@ -114,7 +114,7 @@ if(isset($_GET['groupid'])) {
   if(isset($_POST["comment_msg"]))  {
     
     $messageId=$_POST['message_id'];
-    $comment=$_POST['comment_msg'];
+    $comment = mysqli_real_escape_string($conn,$_POST['comment_msg']);
     echo $comment;
     if($comment!=NULL) {
     $insertComment="INSERT INTO `comments`(`messageId`, `text`, `sentTime`) VALUES ($messageId,\"$comment\",now());";

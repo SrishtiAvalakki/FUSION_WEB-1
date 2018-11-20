@@ -73,7 +73,7 @@ $(document).ready(function() {
 });
 </script>
 <button class="button is-link" id = 'create_group' name="Submit">Submit</button>
-<a href="../index.php" style="color:black"><u>Cancel</u></a>
+<a href="../admin.php" style="color:black"><u>Cancel</u></a>
 </div>
 </body>
 </html>

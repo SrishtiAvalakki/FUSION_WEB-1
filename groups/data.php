@@ -1,7 +1,7 @@
 <?php
  require('../login/loginPage.php');
 require("../utils/connection.php");
-$title = $_POST['title'];
+$title = mysqli_real_escape_string($conn,$_POST['title']);
 $userGroup = $_POST['usersgroup'];
 $groupType  = $_POST['groupType'];
 $userId= $_SESSION["userid"];

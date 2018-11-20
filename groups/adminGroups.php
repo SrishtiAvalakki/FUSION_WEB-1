@@ -26,8 +26,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 								</a>
 							</div>
 							<div class="tabs" style="float: right;">
-							<a href="../up.php">Profile</a>
-								<a href="groups.php">Create Group</a>
+						
 								<a href="../login/login.html">Sign Out</a>
 							</div>
 						</div>
@@ -36,6 +35,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 			<div class="sidenav">
             </div>
         <script>
+
        $(document).ready(function(){
                 var str = "<br>";
                     $.ajax({
@@ -49,7 +49,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             var obj = JSON.parse(data);
                             obj['name'].forEach(function(e){
                               
-                                str += "<a class = 'link1' id ='"+e['id']+"'>"+e['name']+"</a><div class='deleteGroup' id='"+e['id']+"'><i class='fa fa-trash-o' style='padding-left:15px;font-size:24px;color:red'></i></div><i class='fa fa-archive' style='padding-left:15px;font-size:24px;color:#1e90ff'></i>";
+                                str += "<a class = 'link1' id ='"+e['id']+"'>"+e['name']+"</a><div class='deleteGroup' id='"+e['id']+"'><i class='fa fa-trash-o' style='padding-left:15px;font-size:24px;color:red'></i></div><div class='archiveGroup' id='"+e['id']+"'><i class='fa fa-archive' style='padding-left:15px;font-size:24px;color:#1e90ff'></i></div>";
                                 
                             });
                             
@@ -60,6 +60,36 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         }
                        
                     });
+                    
+                    $(document).on('click','.archiveGroup',function() {
+                var archiveGroupId = $(this).attr('id'); 
+                //console.log(archiveGroupId);
+               $.ajax({
+                    url:'groups_admin.php',
+                    datatype:'text',
+                    method:'POST',
+                    data:{"archiveGroupId":archiveGroupId},
+                    success:function(data){
+                       
+                         var obj = JSON.parse(data);
+                         console.log(obj['isArchived']);
+                         if(obj['isArchived']==='0') {
+                             alert("Archived");
+                         }
+                         else {
+                            alert("unarchived");
+                         }
+                        // obj['users'].forEach(function(e){
+                        //     console.log(e);
+                        //     });
+                            
+                        //     // $('.sidenav').html(str);
+                            
+                        //     //location.href = "index.php";
+                        // }
+                    }
+                });
+            });
             $(document).on('click','.deleteGroup',function() {
                 var id = $(this).attr('id'); 
                 console.log(id);

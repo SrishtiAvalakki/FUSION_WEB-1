@@ -73,8 +73,23 @@ if(isset($_GET['groups'])) {
  if(isset($_POST['singleUser'])) {
     $newSingleUser=$_POST['singleUser'];
     $getUsers="INSERT INTO `usergroupmapping`(`userId`, `groupId`) VALUES ($newSingleUser,$groupId);";
-    $result = $conn->query($getUsers);
+    $result =  mysqli_real_escape_string($conn->query($getUsers));
     echo "adding";
 //echo "success";
+ }
+ 
+ if(isset($_POST['archiveGroupId'])) {
+     $archiveState=$_POST['archiveGroupId'];
+    $changeArchiveMode="UPDATE groups SET isArchived = !isArchived WHERE id = '$archiveState';";
+    $result = $conn->query($changeArchiveMode);
+    $getGroups="select isArchived from groups where id='$archiveState';";
+    $result1=$conn->query($getGroups);
+    if ($result1-> num_rows > 0) {
+        while($row = $result1->fetch_assoc()) {
+            echo json_encode($row); 
+        }
+        
+    }
+    
  }
 ?>

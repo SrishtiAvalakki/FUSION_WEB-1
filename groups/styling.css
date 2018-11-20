@@ -229,3 +229,7 @@ color: #999;
 .fa:hover {
 color: darkblue;
 }
+
+.clicked {
+  color: yellow;
+}
