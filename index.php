@@ -1,6 +1,128 @@
-<html>
 <?php
 session_start();
+$userId=$_SESSION["userid"];
+$groupId=$_SESSION["groupid"];
+//$userId=4;
+//echo "$userId";
+include 'utils/ChromePhp.php';
+if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid']))
+{
+    $newURL = "login/login.html";
+    header('Location: '.$newURL);
+}
+  // Create database connection
+  $db = mysqli_connect("localhost", "root", "", "roomies");
+
+  // Initialize message variable
+  $msg = "";
+
+  // If upload button is clicked ...
+  
+  if (isset($_POST['upload']))
+   {
+    $image = $_FILES['image'];
+
+    //$image = $_FILES['image']['name'];
+
+    //$file = $_FILES['file'];
+    
+    $fileName =$_FILES['image']['name'];
+    $fileTmpName =$_FILES['image']['tmp_name'];
+    $fileSize =$_FILES['image']['size'];
+    $fileError =$_FILES['image']['error'];
+    $fileType =$_FILES['image']['type'];
+    $fileExt =explode('.' , $fileName);
+    $fileActualExt = strtolower(end($fileExt));
+
+
+    // Get text
+    //$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
+
+      // image file directory
+      
+      //$target = "images/".basename($image);
+      $types = array('jpeg', 'gif', 'png', 'jpg','JPEG','JPG','PNG');
+      $ftypes = array('pdf', 'docx', 'doc', 'ppt','xml','json');
+     if (in_array($fileActualExt, $types))
+       {
+        
+
+        $fileNameNew = "messageImage".$groupId.uniqid('',true).".".$fileActualExt;
+        $fileDestination ='images/'.$fileNameNew;
+        move_uploaded_file($fileTmpName,$fileDestination);
+        // file is okay continue
+        $sql = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$fileDestination', now());";            
+
+        //$sql ="UPDATE `users` SET `image`='$fileDestination' WHERE id='$userId'";
+        //$sql = "INSERT INTO `users` SET `image` ='$image' WHERE id='$userId'";
+
+        mysqli_query($db, $sql);
+        header("Location:index.php");
+
+
+        } 
+    else
+     {
+        echo '<script language="javascript">';
+        echo 'alert("image uploaded in the wrong format!")';
+        echo '</script>';
+       
+        } 
+        
+        if (in_array($fileActualExt, $ftypes))
+        {
+         
+ 
+         $fileNameNew = "messageFile".$groupId.uniqid('',true).".".$fileActualExt;
+         $fileDestination ='images/'.$fileNameNew;
+         move_uploaded_file($fileTmpName,$fileDestination);
+         // file is okay continue
+         $sql = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$fileDestination', now());";            
+ 
+         //$sql ="UPDATE `users` SET `image`='$fileDestination' WHERE id='$userId'";
+         //$sql = "INSERT INTO `users` SET `image` ='$image' WHERE id='$userId'";
+ 
+         mysqli_query($db, $sql);
+         header("Location:index.php");
+ 
+ 
+         } 
+     else
+      {
+         echo '<script language="javascript">';
+         echo 'alert("File Uploaded in the wrong format!")';
+         echo '</script>';
+        
+         } 
+     
+    
+
+      //$sql = "INSERT INTO images (image) VALUES ('$image')";
+     // $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
+      
+      
+      // execute query
+       // mysqli_query($db, $sql);
+
+      //if (move_uploaded_file($_FILES['image']['tmp_name'], $target))
+       //{
+        //echo "Image uploaded successfully";
+      //}
+      //else{
+        //echo  "Failed to upload image";
+    }
+  
+
+  //$result1 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+  //$result2 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+  //$result3 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+  //$result4 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+  //$result5 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+?>
+
+<html>
+<?php
+//session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
     $newURL = "login/login.html";
@@ -16,7 +138,16 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style>
+            .bio-image{
+         height: 200px;
+         width: 200px;
+    border: 3px solid;
+
+}
+    </style>        
     </head>
+  
 <body>
 <div class="topnav" id="myTopnav">
 						<div class="row" >
@@ -58,7 +189,16 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                        
                     });
             $(document).on('click','.link',function(e) {
-                var str1="<form action='#' method='POST'><div style='margin:1%'><textarea class='textbox' name='usermsg' style='float:left;' id='usermsg'></textarea><input name='submitmsg' type='submit' class='btn btn-success btn-lg' id='submitmsg' value='Send'/></div></form>";
+                var str1="<form action='index.php' method='POST' enctype='multipart/form-data'>"
+                    +"<div style='margin:1%'>"
+                         +"<textarea class='textbox' name='usermsg' style='float:left;' id='usermsg'></textarea>"
+                             +"<input name='submitmsg' method='POST' action='index.php' type='submit' class='btn btn-success btn-lg' id='submitmsg'enctype='multipart/form-data' value='Send'/>"
+                             +"<form method='POST' action='index.php' enctype='multipart/form-data'>"
+                             +"<input type='file' name='image'>"
+                             +"<button type='submit' name='upload' method='POST' action='index.php' enctype='multipart/form-data'>Post Image</button>"
+                             +"</form>"
+                     +"</div>"
+               +"</form>";
                 
                     var group_id = $(this).attr('id');
                     var str="";
@@ -76,17 +216,21 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                            
                             if(obj['displayName']!=null)
                             {
-                                if(obj['isArchived']==='1'){
+                                var image = obj['text'];
+                                result = image.match(/[^"\'=\s]+\.(jpg|png|jpeg)/);
+                                if(result!=null){
+                                    if(obj['isArchived']==='1'){
                                 console.log("notarchived");
                                  //str+=str1;
                                // $('.chatDiv').append(str1); 
                              str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
                                 +"<div id='name_tag' style='margin:30px'>"
                                 +"<div id='message_tag'>"
-                                +"<img src="+"'"+obj['image']+"' alt='Avatar' style='width:90%;'>"
+                                +"<img src="+"'"+obj['image']+"' alt='Avatar'>"
                                 +"<b>"+obj['displayName']+"</b>:"
                                 +"<p><sub>"+obj['sentTime']+"</sub></p>"
-                                +"<pre style='padding:10px'>"+obj['text']+ "</pre><br><br>"
+                                +"<a target='+_blank' href='"+obj['text']+"'><img src='"+obj['text']+"' style= 'height:200px; max-width: 200px; border: 3px solid;border-radius: 0px;'></a>"                               
+                                +"<br><br>"
                                 +"</div>"
                                 +"</div>"
                                     +"<button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i>"
@@ -111,6 +255,87 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 +"</div>"
                             +"</div>";
                            }
+                                }
+                               else if(obj['text'].match(/[^"\'=\s]+\.(pdf|doc|docx)/)!=null){
+                                    if(obj['isArchived']==='1'){
+                                console.log("notarchived");
+                                 //str+=str1;
+                               // $('.chatDiv').append(str1); 
+                               
+
+                             str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
+                                +"<div id='name_tag' style='margin:30px'>"
+                                +"<div id='message_tag'>"
+                                +"<img src="+"'"+obj['image']+"' alt='Avatar'>"
+                                +"<b>"+obj['displayName']+"</b>:"
+                                +"<p><sub>"+obj['sentTime']+"</sub></p>"
+                                +"<a target='+_blank' href='"+obj['text']+"'>FileUploaded</a>"                               
+                                +"<br><br>"
+                                +"</div>"
+                                +"</div>"
+                                    +"<button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i>"
+                                   +"<button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button>"
+                            +"</div>"
+                            +"</div>"
+                            +"</div>";
+                           } else {
+                            console.log("archived");
+                          str+="<div class = message_"+obj['id']+"><br>"
+                            +"<div id='m_id"+obj['id']+"'value='"+obj['id']+"'>"
+                                +"<div class='container'>"
+                                    +"<div id='name_tag' style='margin:30px'>"
+                                        +"<div id='message_tag'>"
+                                            +" <img src="+"'"+obj['image']+"' alt='Avatar' style='width:90%;'>"
+                                                    +"<b>"+obj['displayName']+"</b>:"
+                                                    +"<p><sub>"+obj['sentTime']+"</sub></p>"
+                                                    +"<pre style='padding:10px'>"+obj['text']+ "</pre><br><br>"
+                                            +"</div>"
+                                        +"</div>"
+                                    +"</div>"
+                                +"</div>"
+                            +"</div>";
+                           }
+                                }
+                                else {
+                                    if(obj['isArchived']==='1'){
+                                console.log("notarchived");
+                                 //str+=str1;
+                               // $('.chatDiv').append(str1); 
+                             str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
+                                +"<div id='name_tag' style='margin:30px'>"
+                                +"<div id='message_tag'>"
+                                +"<img src="+"'"+obj['image']+"' alt='Avatar' style='width:90%;'>"
+                                +"<b>"+obj['displayName']+"</b>:"
+                                +"<p><sub>"+obj['sentTime']+"</sub></p>"
+                                +obj['text']
+                                
+                                +"<br><br>"
+                                +"</div>"
+                                +"</div>"
+                                    +"<button id = 'likes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-up' value="+obj['id']+"</i></button><button id = 'dislikes' value="+obj['id']+"<i style='padding: 10px;' class='fa fa-thumbs-down' value="+obj['id']+"</i></button>"+obj['likes']+"<button><i class='fa fa-comments-o comment' id='"+obj['id']+"' style='font-size:24px'></i>"
+                                   +"<button class='show_messages' id='show_"+obj['id']+"'><label> show messages</label></button></button>"
+                            +"</div>"
+                            +"</div>"
+                            +"</div>";
+                           } else {
+                            console.log("archived");
+                          str+="<div class = message_"+obj['id']+"><br>"
+                            +"<div id='m_id"+obj['id']+"'value='"+obj['id']+"'>"
+                                +"<div class='container'>"
+                                    +"<div id='name_tag' style='margin:30px'>"
+                                        +"<div id='message_tag'>"
+                                            +" <img src="+"'"+obj['image']+"' alt='Avatar' style='width:90%;'>"
+                                                    +"<b>"+obj['displayName']+"</b>:"
+                                                    +"<p><sub>"+obj['sentTime']+"</sub></p>"
+                                                    +"<pre style='padding:10px'>"+obj['text']+ "</pre><br><br>"
+                                            +"</div>"
+                                        +"</div>"
+                                    +"</div>"
+                                +"</div>"
+                            +"</div>";
+                           }
+                                }
+                            
                             } else {
                                 str+="<p>No messages</p>";
                                 break;
@@ -162,6 +387,22 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                 console.log(text_value);
                     $.ajax({
                         url:'groupmessages.php',
+                        method:'POST',
+                        datatype:'text',
+                        data:{"msg":text_value},
+                         success:function(data){
+                             $('.chatDiv').append(data);
+                             //location.reload();
+                             //window.location.reload();
+                        }
+                });
+            });
+
+            $(document).on('click','#upload',function() {
+                 var text_value = $("#usermsg").val();
+                console.log(text_value);
+                    $.ajax({
+                        url:'newup.php',
                         method:'POST',
                         datatype:'text',
                         data:{"msg":text_value},
