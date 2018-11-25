@@ -11,7 +11,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     header('Location: '.$newURL);
 }
   // Create database connection
-  $db = mysqli_connect("localhost", "admin", "monarchs", "roomies");
+  $db = mysqli_connect("localhost", "root", "", "roomies");
 
   // Initialize message variable
   $msg = "";
