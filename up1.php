@@ -62,7 +62,7 @@ include 'utils/ChromePhp.php';
     */
 
     
-  $db = mysqli_connect("localhost", "root", "", "roomies");
+  $db = mysqli_connect("localhost", "admin", "monarchs", "roomies");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error()); 
 }

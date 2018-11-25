@@ -10,7 +10,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     header('Location: '.$newURL);
 }
   // Create database connection
-  $db = mysqli_connect("localhost", "root", "", "roomies");
+  $db = mysqli_connect("localhost", "admin", "monarchs", "roomies");
 
   // Initialize message variable
   $msg = "";
@@ -191,6 +191,7 @@ h3,sm-heading,{
                             </div>
                             <div class="nav navbar-nav navbar-right" id ="nav_list">
                                 <a class="navbar-brand"href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit My Profile</a>
+                                <a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
                                 <a class="navbar-brand" href="search.php"><span class="glyphicon glyphicon-search"></span>Search Users</a>
                                 <a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
                             </div>

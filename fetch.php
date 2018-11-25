@@ -1,5 +1,5 @@
 <?php
-$connect = mysqli_connect("localhost", "root", "", "roomies");
+$connect = mysqli_connect("localhost", "admin", "monarchs", "roomies");
 $output = '';
 if(isset($_POST["query"]))
 {

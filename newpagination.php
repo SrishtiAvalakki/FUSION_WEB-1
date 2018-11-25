@@ -1,7 +1,7 @@
 <?php
    $dbhost = "localhost";
-   $dbuser = "root";
-   $dbpass = "";
+   $dbuser = "admin";
+   $dbpass = "monarchs";
    $dbname = "roomies";
          
  
