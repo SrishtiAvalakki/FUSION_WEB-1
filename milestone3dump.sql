@@ -27,6 +27,11 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comments`
 --
+CREATE DATABASE `roomies`;
+USE `roomies`;
+
+grant all privileges on *.* to 'root'@'localhost';
+
 
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
