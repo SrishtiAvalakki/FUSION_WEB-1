@@ -18,7 +18,8 @@ session_start();
       if(intval($responseKeys["success"]) !== 1) {
         echo '<h2>You are spammer !</h2>';
       } else {
-        echo '<h2>Thanks for posting comment.</h2>';
+          header('Location: '.$newURL);
+//         echo '<h2>Thanks for posting comment.</h2>';
      
       }
     require('../utils/connection.php');
