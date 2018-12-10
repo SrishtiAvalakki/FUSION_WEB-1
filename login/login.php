@@ -1,6 +1,6 @@
 <?php
-
 require "github_login/init.php";
+require "checkIfAlreadyLoggedIn.php";
 ?>
 <!DOCTYPE html>
 <html>
