@@ -1,6 +1,6 @@
 <html>
 <?php
-session_start();
+require "checkAccess.php";
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
     $newURL = "login/login.php";
