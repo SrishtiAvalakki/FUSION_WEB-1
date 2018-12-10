@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2018 at 05:19 AM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Host: 127.0.0.1
+-- Generation Time: Nov 25, 2018 at 08:18 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,6 +27,10 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comments`
 --
+CREATE DATABASE `roomies`;
+USE `roomies`;
+
+grant all privileges on *.* to 'root'@'localhost';
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE IF NOT EXISTS `comments` (
