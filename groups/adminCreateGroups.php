@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <?php
 //require '../utils/checkAuthorisation.php'; 
 ?>
-<html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +43,7 @@
        $result = $conn->query($displayNames);
        if ($result-> num_rows > 0) {
         foreach($result as $rows) {
-          echo  '<input type="checkbox" value='.$rows['username'].' id="'.$rows['id'].'" name="members">
+          echo  '<input type="checkbox" value="'.$rows['username'].'" id="'.$rows['id'].'" name="members">
                 <label>'.$rows['username'].'</label>';
           echo '<br>';
         }

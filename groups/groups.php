@@ -1,6 +1,7 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<title>Groups</title>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -37,7 +38,6 @@
 .checkmark {
   position: absolute;
   top: 0;
-  left: 625px;
   height: 25px;
   width: 25px;
   background-color: #eee;
@@ -96,12 +96,11 @@
 			</div>
 		</div>
 </div>
-<div class="row">
-<center>
-<label class="label"><h3>Name of Group:</h3></label>
+<div class="row" style="margin-left:40%">
+<h3>Name of Group:</h3>
 <input class="input" type="text" id="groupName" name="groupTitle" placeholder="Text input" value="" required>
 <br/>
-<label class="label"><h3>Group Type:</h3></label>
+<h3>Group Type:</h3>
 <br>
 <label class = "container">Public
     <input type="radio" checked = "checked" name="isPrivate" value="Public" checked ><span class="checkmark"></span></label>
@@ -110,14 +109,14 @@
     <input type="radio" name="isPrivate" value="Private" checked><span class="checkmark"></span></label>
 <!-- <br> -->
 
-<label class="label"><h3>Add Names:</h3></label>
+<h3>Add Names:</h3>
 <?php
        require('../utils/connection.php');
        $displayNames="SELECT * FROM `users` where id != '$userId' and id!='0';";
        $result = $conn->query($displayNames);
        if ($result-> num_rows > 0) {
         foreach($result as $rows) {
-          echo  '<input type="checkbox" value='.$rows['username'].' id="'.$rows['id'].'" name="members">
+          echo  '<input type="checkbox" value="'.$rows['username'].'" id="'.$rows['id'].'" name="members">
                 <label>'.$rows['username'].'</label>';
           echo '<br>';
         }
@@ -152,7 +151,6 @@ $(document).ready(function() {
 </script>
 <button class="button is-link" id = 'create_group' name="Submit">Submit</button>
 <a href="../index.php" style="color:black"><u>Cancel</u></a>
-</center>
 </div>
 </body>
 </html>

@@ -1,7 +1,6 @@
-<?php
-//require '../utils/checkAuthorisation.php'; 
-?>
-<html>
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<title>Admin_Groups</title>
 <?php
 session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){

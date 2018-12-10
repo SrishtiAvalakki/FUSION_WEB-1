@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>User Search</title>
@@ -6,8 +7,75 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
 		<style>
+main {
+    padding: 4rem;
+    min-height: 40px;
+}
+h1,h2,h3{
+    margin:0;
+    font-weight:400;
+}
+h1,lg-heading,
+h2,lg-heading,
+h3,lg-heading {
+    font-size: 6rem;
+}
+h1,sm-heading,
+h2,sm-heading,
+h3,sm-heading {
+    margin-bottom: 2rem;
+    padding: 0.2rem 1rem;
+    background: rgba(255,255,255,0.5);
+}
+.text-secondary{
+    color: #3334ff;
+}
+.about-info {
+      display: grid;
+      grid-gap: 30px;
+      grid-template-areas:'bioimage bio bio' 'job1 job2 job3';
+      grid-template-columns: repeat(3,1fr);
+      }
+
+.about-info .bio-image{
+    grid-area: bio-image;
+    margin-top:0px;
+    margin-left:10px;
+    height: 200px;
+    width: 200px;
+    border: 3px solid;
+
+}
+
+.about-info .bio{
+    grid-area: bio;
+    font-size: 1.5rem;
+}
+
+
+.about-info .job-1{
+    grid-area:job1;
+}
+
+
+.about-info .job-2{
+    grid-area:job2;
+}
+
+
+.about-info .job-3{
+    grid-area:job3;
+}
+
+.about-info .job{
+    background: white;
+    padding: 0.5rem;
+    border-bottom: #3334FF 5px solid;
+
+}
 		</style>
 	</head>
+
 	<body class="bsearch">
 
 	<nav class="navbar navbar-inverse" id="nav_bar">
@@ -28,7 +96,7 @@
 			<br />
 			<br />
 			<br />
-			<h2 style="align:center">Find your new Roomie here!</h2><br />
+			<h2>Find your new Roomie here!</h2><br />
 			<div class="form-group">
 				<div class="input-group">
 					<span class="input-group-addon">Search</span>

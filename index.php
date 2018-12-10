@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 session_start();
 if(!isset($_SESSION['authSatisified'])) {
@@ -24,11 +25,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
   if (isset($_POST['upload']))
    {
     $image = $_FILES['image'];
-
-    //$image = $_FILES['image']['name'];
-
-    //$file = $_FILES['file'];
-    
     $fileName =$_FILES['image']['name'];
     $fileTmpName =$_FILES['image']['tmp_name'];
     $fileSize =$_FILES['image']['size'];
@@ -39,11 +35,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 
 
     // Get text
-    //$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
-
-      // image file directory
-      
-      // $target = "images/".basename($image);
       $types = array('jpeg', 'gif', 'png', 'jpg','JPEG','JPG','PNG');
       $ftypes = array('pdf', 'docx', 'doc', 'ppt','xml','json');
      if (in_array($fileActualExt, $types))
@@ -53,10 +44,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
         move_uploaded_file($fileTmpName,$fileDestination);
         // file is okay continue
         $sql = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$fileDestination', now());";            
-
-        //$sql ="UPDATE `users` SET `image`='$fileDestination' WHERE id='$userId'";
-        //$sql = "INSERT INTO `users` SET `image` ='$image' WHERE id='$userId'";
-
         mysqli_query($db, $sql);
         header("Location:index.php");
 
@@ -79,10 +66,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
          move_uploaded_file($fileTmpName,$fileDestination);
          // file is okay continue
          $sql = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$fileDestination', now());";            
- 
-         //$sql ="UPDATE `users` SET `image`='$fileDestination' WHERE id='$userId'";
-         //$sql = "INSERT INTO `users` SET `image` ='$image' WHERE id='$userId'";
- 
          mysqli_query($db, $sql);
          header("Location:index.php");
  
@@ -95,33 +78,10 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
          echo '</script>';
         
          } 
-     
-    
-
-      //$sql = "INSERT INTO images (image) VALUES ('$image')";
-     // $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
-      
-      
-      // execute query
-       // mysqli_query($db, $sql);
-
-      //if (move_uploaded_file($_FILES['image']['tmp_name'], $target))
-       //{
-        //echo "Image uploaded successfully";
-      //}
-      //else{
-        //echo  "Failed to upload image";
     }
-  
-
-  //$result1 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
-  //$result2 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
-  //$result3 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
-  //$result4 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
-  //$result5 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
 ?>
 
-<html>
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <?php
 //session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
@@ -139,6 +99,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>HomePage</title>
         <style>
             .bio-image{
          height: 200px;
@@ -207,7 +168,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         datatype:'text',
                         data:{"groupid":group_id},
                         success:function(data){
-                            //$('.chatDiv').append(str1);
                             var JSONObject = JSON.parse(data);
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
@@ -221,9 +181,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 if(result!=null){
                                     if(obj['isArchived']==='1'){
                                 console.log("notarchived");
-                                 //str+=str1;
-                               // $('.chatDiv').append(str1); 
-                             str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
+                               str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
                                 +"<div id='name_tag' style='margin:30px'>"
                                 +"<div id='message_tag'>"
                                 +"<img src="+"'"+obj['image']+"' alt='Avatar'>"
@@ -258,11 +216,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 }
                                else if(obj['text'].match(/[^"\'=\s]+\.(pdf|doc|docx)/)!=null){
                                     if(obj['isArchived']==='1'){
-                                console.log("notarchived");
-                                 //str+=str1;
-                               // $('.chatDiv').append(str1); 
-                               
-
                              str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
                                 +"<div id='name_tag' style='margin:30px'>"
                                 +"<div id='message_tag'>"
@@ -279,7 +232,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             +"</div>"
                             +"</div>";
                            } else {
-                            console.log("archived");
                           str+="<div class = message_"+obj['id']+"><br>"
                             +"<div id='m_id"+obj['id']+"'value='"+obj['id']+"'>"
                                 +"<div class='container'>"
@@ -298,9 +250,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 }
                                 else {
                                     if(obj['isArchived']==='1'){
-                                console.log("notarchived");
-                                 //str+=str1;
-                               // $('.chatDiv').append(str1); 
                              str+="<div class = message_"+obj['id']+"><br><div id='m_id"+obj['id']+"'value='"+obj['id']+"'><div class='container'>"
                                 +"<div id='name_tag' style='margin:30px'>"
                                 +"<div id='message_tag'>"
@@ -318,8 +267,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             +"</div>"
                             +"</div>";
                            } else {
-                            console.log("archived");
-                          str+="<div class = message_"+obj['id']+"><br>"
+                       str+="<div class = message_"+obj['id']+"><br>"
                             +"<div id='m_id"+obj['id']+"'value='"+obj['id']+"'>"
                                 +"<div class='container'>"
                                     +"<div id='name_tag' style='margin:30px'>"
@@ -342,7 +290,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             }
                             }  
                             $('.chatDiv').html(str1); 
-                            //$('.chatDiv').html("<div>"+str1+"</div>");   
                             $('.chatDiv').append(str); 
                                             
                         }
@@ -352,23 +299,18 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
             });
             $(document).on('click','#likes',function() {
                   var noOflikes = $("#likes").val();
-                //console.log(noOflikes);
-                    $.ajax({
+                $.ajax({
                         url:'groupmessages.php',
                         method:'POST',
                         datatype:'text',
                         data:{"likes":noOflikes},
                          success:function(data){
                             console.log(data);
-                             //location.reload();
-                             //window.location.reload();
                         }
                 });
-                // alert(text_value);
             });
             $(document).on('click','#dislikes',function() {
                   var noOfDislikes = $("#dislikes").val();
-                // console.log(text_value);
                     $.ajax({
                         url:'groupmessages.php',
                         method:'POST',
@@ -376,8 +318,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         data:{"dislikes":noOfDislikes},
                          success:function(data){
                             console.log(data);
-                             //location.reload();
-                             //window.location.reload();
                         }
                 });
             });
@@ -392,8 +332,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         data:{"msg":text_value},
                          success:function(data){
                              $('.chatDiv').append(data);
-                             //location.reload();
-                             //window.location.reload();
                         }
                 });
             });
@@ -408,8 +346,6 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                         data:{"msg":text_value},
                          success:function(data){
                              $('.chatDiv').append(data);
-                             //location.reload();
-                             //window.location.reload();
                         }
                 });
             });
@@ -441,17 +377,12 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             var length = JSONObject.length;
                             for(var i=0;i<length;i++) {
                             var obj = JSONObject[i];
-                            // console.log(obj['text']);
-                            //console.log(obj['id']);
-                        
-                           
                             }
                          }
                 });
               });
               $(document).on('click','.show_messages',function() {
                   var mes_id=$(this).attr('id');
-                  //$(this).addClass('show');
                   if(!($(this).hasClass('show')))
                   {
                   var message_idInt=parseInt(mes_id.split('_')[1]);
