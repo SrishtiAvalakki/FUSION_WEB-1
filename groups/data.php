@@ -1,4 +1,7 @@
 <?php
+//require '../utils/checkAuthorisation.php'; 
+?>
+<?php
  require('../login/loginPage.php');
 require("../utils/connection.php");
 $title = mysqli_real_escape_string($conn,$_POST['title']);

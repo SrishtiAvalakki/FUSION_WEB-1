@@ -1,3 +1,4 @@
+
 <html>
 <head>
 <meta charset="utf-8">
@@ -97,7 +98,7 @@
 </div>
 <div class="row">
 <center>
-<label class="label"><h3>Name of Group:</h3>></label>
+<label class="label"><h3>Name of Group:</h3></label>
 <input class="input" type="text" id="groupName" name="groupTitle" placeholder="Text input" value="" required>
 <br/>
 <label class="label"><h3>Group Type:</h3></label>

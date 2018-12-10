@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 25, 2018 at 08:18 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 10, 2018 at 05:19 AM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,19 +27,17 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comments`
 --
-CREATE DATABASE `roomies`;
-USE `roomies`;
 
-grant all privileges on *.* to 'root'@'localhost';
-
-
-CREATE TABLE `comments` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `messageId` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `sentTime` datetime NOT NULL,
-  `likes` int(11) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `likes` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `comments_fk01` (`messageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `comments`
@@ -55,12 +53,16 @@ INSERT INTO `comments` (`id`, `messageId`, `text`, `sentTime`, `likes`) VALUES
 -- Table structure for table `groups`
 --
 
-CREATE TABLE `groups` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
   `isPrivate` tinyint(1) NOT NULL,
-  `isArchived` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `isArchived` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `groups`
@@ -69,7 +71,8 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`id`, `name`, `isPrivate`, `isArchived`) VALUES
 (1, 'Global', 0, 1),
 (2, 'PrivateGroup_Apt1', 1, 1),
-(3, 'PrivateGroup_Apt2', 1, 1);
+(3, 'PrivateGroup_Apt2', 1, 1),
+(4, 'roomies', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -77,14 +80,18 @@ INSERT INTO `groups` (`id`, `name`, `isPrivate`, `isArchived`) VALUES
 -- Table structure for table `messages`
 --
 
-CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `messages`;
+CREATE TABLE IF NOT EXISTS `messages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `groupId` int(11) NOT NULL,
   `userId` int(11) NOT NULL,
   `text` longtext NOT NULL,
   `sentTime` datetime NOT NULL,
-  `likes` int(11) UNSIGNED NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `likes` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `message_fk01` (`groupId`),
+  KEY `message_fk02` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messages`
@@ -134,7 +141,19 @@ INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) 
 (53, 1, 1, 'images/messageFile15bfaedccccc598.58941387.pdf', '2018-11-25 13:45:32', 0),
 (54, 1, 1, 'images/messageImage15bfaf40b385260.99742563.jpg', '2018-11-25 14:12:11', 0),
 (55, 1, 1, 'images/messageImage15bfaf41ecd5468.58006284.jpg', '2018-11-25 14:12:30', 0),
-(56, 1, 1, 'images/messageFile15bfaf42948e303.51409170.docx', '2018-11-25 14:12:41', 0);
+(56, 1, 1, 'images/messageFile15bfaf42948e303.51409170.docx', '2018-11-25 14:12:41', 0),
+(57, 1, 1, 'hello i am srishti', '2018-12-09 18:10:58', 0),
+(58, 1, 1, 'images/messageImage15c0da18ebd3cf7.15127163.jpg', '2018-12-09 18:13:18', 0),
+(59, 1, 1, 'images/messageImage15c0da269829b86.84262120.jpg', '2018-12-09 18:16:57', 0),
+(60, 1, 1, '', '2018-12-09 18:17:46', 0),
+(61, 1, 1, 'images/messageFile15c0da449b97ca7.45107916.docx', '2018-12-09 18:24:57', 0),
+(62, 1, 1, 'images/messageImage15c0da479bc61f3.75588083.jpg', '2018-12-09 18:25:45', 0),
+(63, 1, 1, 'images/messageFile15c0da48e2b7950.11563360.pdf', '2018-12-09 18:26:06', 0),
+(64, 1, 1, 'hello', '2018-12-09 18:27:32', 0),
+(65, 4, 1, 'hello', '2018-12-09 18:42:56', 0),
+(66, 1, 1, 'hey', '2018-12-09 19:24:20', 0),
+(67, 1, 1, 'heyy', '2018-12-09 19:26:28', 0),
+(68, 7, 1, 'hiii', '2018-12-09 19:53:17', 0);
 
 -- --------------------------------------------------------
 
@@ -142,11 +161,16 @@ INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) 
 -- Table structure for table `usergroupmapping`
 --
 
-CREATE TABLE `usergroupmapping` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usergroupmapping`;
+CREATE TABLE IF NOT EXISTS `usergroupmapping` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userId` int(11) NOT NULL,
-  `groupId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `groupId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`userId`,`groupId`),
+  KEY `UserGroupMapping_fk01` (`userId`),
+  KEY `UserGroupMapping_fk02` (`groupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usergroupmapping`
@@ -156,19 +180,26 @@ INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
 (1, 0, 1),
 (15, 0, 2),
 (16, 0, 3),
+(18, 0, 4),
+(30, 0, 7),
 (2, 1, 1),
 (8, 1, 2),
+(17, 1, 4),
+(29, 1, 7),
 (3, 2, 1),
 (9, 2, 2),
+(23, 2, 4),
 (4, 3, 1),
 (14, 3, 2),
 (10, 3, 3),
+(19, 3, 4),
+(31, 3, 7),
 (5, 4, 1),
 (11, 4, 2),
+(27, 4, 4),
+(35, 4, 7),
 (6, 5, 1),
-(12, 5, 3),
-(7, 6, 1),
-(13, 6, 2);
+(12, 5, 3);
 
 -- --------------------------------------------------------
 
@@ -176,9 +207,13 @@ INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
 -- Table structure for table `usermessagegrouplikes`
 --
 
-CREATE TABLE `usermessagegrouplikes` (
+DROP TABLE IF EXISTS `usermessagegrouplikes`;
+CREATE TABLE IF NOT EXISTS `usermessagegrouplikes` (
   `userId` int(11) NOT NULL,
-  `messageId` int(11) NOT NULL
+  `messageId` int(11) NOT NULL,
+  PRIMARY KEY (`userId`,`messageId`),
+  KEY `usermessagegrouplikes_fk01` (`userId`),
+  KEY `usermessagegrouplikes_fk02` (`messageId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -187,8 +222,9 @@ CREATE TABLE `usermessagegrouplikes` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(45) NOT NULL,
   `displayName` varchar(45) NOT NULL,
   `password` varchar(100) NOT NULL,
@@ -200,108 +236,27 @@ CREATE TABLE `users` (
   `bio` varchar(100) NOT NULL,
   `pno` int(100) NOT NULL,
   `country` varchar(100) NOT NULL,
-  `image` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `image` varchar(45) NOT NULL,
+  `groups` int(11) DEFAULT NULL,
+  `Posts` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `displayName` (`displayName`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `gender`, `dob`, `about`, `hobbies`, `bio`, `pno`, `country`, `image`) VALUES
-(0, 'shreya', 'shreya', '@shreya', 'shreya@odu.edu', 'F', '2018-11-12', 'admin', 'admin', 'admin', 123456789, 'admin', 'admin'),
-(1, 'Tow Mater', 'Tow Mater', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', '', '', '', 0, '', 'images/profile15bfae3ba9d7fc3.89228199.png'),
-(2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'tom_and_jerry_PNG53.png'),
-(3, 'Doc Hudson', 'Doc Hudson', '@doc', 'hornet@rsprings.gov', 'M', '2009-10-18', '', '', '', 0, '', '35.jpg'),
-(4, 'Finn McMissile', 'Finn McMissile', '@mcmissile', 'topsecret@agent.org', 'M', '2000-10-18', '', '', '', 0, '', '35.jpg'),
-(5, 'Lightning McQueen', 'Lightning McQueen', '@mcqueen', 'kachow@rusteze.com', 'F', '1995-10-18', '', '', '', 0, '', 'Hannible.jpg'),
-(6, 'hello', 'Pagal', 'Srishti@96', 'srishtilakki@gmail.com', 'm', '1996-01-19', 'i am a dancer ', 'watching movies', 'no bio yet ', 762025433, 'bangladesh', 'nibbles_tomandjerry_965.JPG');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `comments_fk01` (`messageId`);
-
---
--- Indexes for table `groups`
---
-ALTER TABLE `groups`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD UNIQUE KEY `name` (`name`);
-
---
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `message_fk01` (`groupId`),
-  ADD KEY `message_fk02` (`userId`);
-
---
--- Indexes for table `usergroupmapping`
---
-ALTER TABLE `usergroupmapping`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`userId`,`groupId`),
-  ADD KEY `UserGroupMapping_fk01` (`userId`),
-  ADD KEY `UserGroupMapping_fk02` (`groupId`);
-
---
--- Indexes for table `usermessagegrouplikes`
---
-ALTER TABLE `usermessagegrouplikes`
-  ADD PRIMARY KEY (`userId`,`messageId`),
-  ADD KEY `usermessagegrouplikes_fk01` (`userId`),
-  ADD KEY `usermessagegrouplikes_fk02` (`messageId`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `displayName` (`displayName`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
-
---
--- AUTO_INCREMENT for table `usergroupmapping`
---
-ALTER TABLE `usergroupmapping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `gender`, `dob`, `about`, `hobbies`, `bio`, `pno`, `country`, `image`, `groups`, `Posts`) VALUES
+(0, 'shreya', 'shreya', '@shreya', 'shreya@odu.edu', 'F', '2018-11-12', 'admin', 'admin', 'admin', 123456789, 'admin', 'images/profile05c0dbc0dc21a14.60491464.jpg', NULL, NULL),
+(1, 'Tow Mater', 'Tow Mater', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', '', '', '', 0, '', 'images/profile15c0daebb7cf413.79630332.jpg', 80, 40),
+(2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'tom_and_jerry_PNG53.png', 5, 70),
+(3, 'Doc Hudson', 'Doc Hudson', '@doc', 'hornet@rsprings.gov', 'M', '2009-10-18', '', '', '', 0, '', '35.jpg', 1, 60),
+(4, 'Finn McMissile', 'Finn McMissile', '@mcmissile', 'topsecret@agent.org', 'M', '2000-10-18', '', '', '', 0, '', '35.jpg', 3, 40),
+(5, 'Lightning McQueen', 'Lightning McQueen', '@mcqueen', 'kachow@rusteze.com', 'F', '1995-10-18', '', '', '', 0, '', 'Hannible.jpg', 2, 20),
+(6, 'hello', 'Pagal', 'Srishti@96', 'srishtilakki@gmail.com', 'm', '1996-01-19', 'i am a dancer ', 'watching movies', 'no bio yet ', 762025433, 'bangladesh', 'nibbles_tomandjerry_965.JPG', 3, 10);
 
 --
 -- Constraints for dumped tables

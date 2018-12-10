@@ -1,9 +1,12 @@
+<?php
+//require '../utils/checkAuthorisation.php'; 
+?>
 <html>
 <?php
 session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
-    $newURL = "login/login.html";
+    $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
 
@@ -27,7 +30,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							</div>
 							<div class="tabs" style="float: right;">
 						
-								<a href="../login/login.html">Sign Out</a>
+								<a href="../login/login.php">Sign Out</a>
 							</div>
 						</div>
         </div>

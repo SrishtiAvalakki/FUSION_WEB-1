@@ -1,5 +1,8 @@
 <?php
 session_start();
+if(!isset($_SESSION['authSatisified'])) {
+    header('Location: '.'login/login.php');
+}
 $userId=$_SESSION["userid"];
 $groupId=$_SESSION["groupid"];
 //$userId=4;
@@ -7,7 +10,7 @@ $groupId=$_SESSION["groupid"];
 include 'utils/ChromePhp.php';
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid']))
 {
-    $newURL = "login/login.html";
+    $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
   // Create database connection
@@ -40,13 +43,11 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 
       // image file directory
       
-      //$target = "images/".basename($image);
+      // $target = "images/".basename($image);
       $types = array('jpeg', 'gif', 'png', 'jpg','JPEG','JPG','PNG');
       $ftypes = array('pdf', 'docx', 'doc', 'ppt','xml','json');
      if (in_array($fileActualExt, $types))
        {
-        
-
         $fileNameNew = "messageImage".$groupId.uniqid('',true).".".$fileActualExt;
         $fileDestination ='images/'.$fileNameNew;
         move_uploaded_file($fileTmpName,$fileDestination);
@@ -125,7 +126,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 //session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
-    $newURL = "login/login.html";
+    $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
 
@@ -160,7 +161,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							<a href="newup.php">Profile</a>
 								<a href="groups/groups.php">Create Group</a>
 								<a href="help.html">HELP</a>
-								<a href="login/login.html">Sign Out</a>
+								<a href="login/login.php">Sign Out</a>
 							</div>
 						</div>
         </div>
@@ -183,8 +184,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             });
                           
                             $('.sidenav').html(str);
-                            // $('.sidenav').html("<a class='inviteGroups'>INVITE GROUPS+</a>");
-                            //location.href = "index.php";
+                           
                         }
                        
                     });
@@ -195,7 +195,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                              +"<input name='submitmsg' method='POST' action='index.php' type='submit' class='btn btn-success btn-lg' id='submitmsg'enctype='multipart/form-data' value='Send'/>"
                              +"<form method='POST' action='index.php' enctype='multipart/form-data'>"
                              +"<input type='file' name='image'>"
-                             +"<button type='submit' name='upload' method='POST' action='index.php' enctype='multipart/form-data'>Post Image</button>"
+                             +"<button type='submit' name='upload' method='POST' action='index.php' enctype='multipart/form-data'>POST</button>"
                              +"</form>"
                      +"</div>"
                +"</form>";
@@ -229,7 +229,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 +"<img src="+"'"+obj['image']+"' alt='Avatar'>"
                                 +"<b>"+obj['displayName']+"</b>:"
                                 +"<p><sub>"+obj['sentTime']+"</sub></p>"
-                                +"<a target='+_blank' href='"+obj['text']+"'><img src='"+obj['text']+"' style= 'height:200px; max-width: 200px; border: 3px solid;border-radius: 0px;'></a>"                               
+                                +"<a target='+_blank' href='"+obj['text']+"'><img src='"+obj['text']+"' style= 'height:200px; background-color:#f5f5f5;border:1px solid #ccc;max-width: 200px; border: 3px solid;border-radius: 0px;background-color:#f5f5f5;border:1px solid #ccc;'></a>"                               
                                 +"<br><br>"
                                 +"</div>"
                                 +"</div>"

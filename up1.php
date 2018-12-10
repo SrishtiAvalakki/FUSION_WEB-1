@@ -1,67 +1,5 @@
 <?php
-/*session_start();
-//$userId=$_SESSION["userid"];
-//$userId=4;
-//echo "$userId";
-include 'utils/ChromePhp.php';
-//if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid']))//
-//{
-  //  $newURL = "login/login.html";
-    //header('Location: '.$newURL);
-//}
-  // Create database connection
-  $db = mysqli_connect("localhost", "root", "", "roomies");
-
-  // Initialize message variable
-  $msg = "";
-
-  // If upload button is clicked ...
   
-  if (isset($_POST['upload']))
-   {
-  	
-  	$image = $_FILES['image']['name'];
-  	// Get text
-  	//$image_text = mysqli_real_escape_string($db, $_POST['image_text']);
-
-      // image file directory
-      
-      $target = "images/".basename($image);
-      $types = array('image/jpeg', 'image/gif', 'image/png');
-      
-     if (in_array($_FILES['image']['type'], $types))
-       {
-        
-        // file is okay continue
-        $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
-        mysqli_query($db, $sql);
-        } 
-    else
-     {
-        echo '<script language="javascript">';
-        echo 'alert("image uploaded in the wrong format!")';
-        echo '</script>';
-       
-       } 
-    
-
-      //$sql = "INSERT INTO images (image) VALUES ('$image')";
-     // $sql ="UPDATE `users` SET `image`='$image'WHERE id='$userId'";
-      
-      
-      // execute query
-       // mysqli_query($db, $sql);
-
-      //if (move_uploaded_file($_FILES['image']['tmp_name'], $target))
-       //{
-  		//echo "Image uploaded successfully";
-      //}
-      //else{
-        //echo  "Failed to upload image";
-    //}
-    */
-
-    
   $db = mysqli_connect("localhost", "admin", "monarchs", "roomies");
   if (!$db) {
     die("Connection failed: " . mysqli_connect_error()); 
@@ -69,7 +7,7 @@ include 'utils/ChromePhp.php';
 
   if(isset($_POST["userID"]))
   {
-    $dp_id=$_POST["userID"];
+  $dp_id=$_POST["userID"];
   $result = mysqli_query($db, "SELECT image FROM users  WHERE id='$dp_id'");
   $result1 = mysqli_query($db, "SELECT * FROM users where id='$dp_id'");
   $result2 = mysqli_query($db, "SELECT * FROM users where id='$dp_id'");
@@ -166,6 +104,12 @@ h3,sm-heading,{
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styling.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      
 
 </head>
 <body class="b1">
@@ -179,11 +123,26 @@ h3,sm-heading,{
                                 <a class="navbar-brand"href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit My Profile</a>
                                 <a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
                                 <a class="navbar-brand" href="search.php"><span class="glyphicon glyphicon-cog"></span>Search Another Users</a>
-                                <a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
+                                <a class="navbar-brand"href="login/login.php"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
                             </div>
                         </div>
                 </nav>
-
+                <script>
+    $(document).ready(function(){
+                    $.ajax({
+                        url:'ratingsCalc.php',
+                        method:'POST',
+                        datatype:'text',
+                        data:{"noOfGroups":"noOfGroups"},
+                        success:function(data)
+			{
+				console.log(data);
+			}
+                    });
+                    
+    });
+    
+    </script>
                 
          <main id="about">
 
@@ -192,8 +151,15 @@ h3,sm-heading,{
    while ($row = mysqli_fetch_array($result1)){
    echo "<h3 class='lg-heading'>User Name: ".$row['username'] . "<br><br><span class='text-secondary'> Display Name:"."  ".$row['displayName']."</span></h3>";
    echo "<h3 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."</h3>";
+   if($row['groups']===null){
+       $row['groups']=0;
+       $row['Posts']=0;
+   };
+   $str="<table><thead><tr><th>Category</th><th>Rating</th></tr></thead><tbody><tr class='groups_rating'><td>Based On Number Of Groups</td><td><div class='stars-outer'><div class='stars-inner' style='width:".$row['groups']."%'></div></div></td></tr><tr class='posts_rating'><td>Based On Number Of Posts</td><td><div class='stars-outer'><div class='stars-inner' style='width:".$row['Posts']."%'></div></div></td></tr></tbody></table>";
+   echo "<h3 class=sm-heading><p class='text-secondary'>Groups</p>".$str."</h3>";
    }
 ?>
+ 
                 <div class="about-info">    
     <form  enctype="multipart/form-data">
     	
@@ -215,14 +181,8 @@ h3,sm-heading,{
         
             <?php
              while ($rowd = mysqli_fetch_array($result2)) {
-      
-      	                               
                 echo "<h3 class='text-secondary'>BIO</h3><p>".$rowd['bio']."</p>";
                 echo "<h3 class='text-secondary'>HOBBIES</h3><p>".$rowd['hobbies']."</p>";
-                //echo "<h3 class='text-secondary'>DOB</h3><p>".$rowd['dob']."</p>";
-                //echo "<h3 class='text-secondary'>COUNTRY</h3><p>".$rowd['country']."</p>";
-                //echo "<h3 class='text-secondary'>GENDER</h3><p>".$rowd['gender']."</p>";
-                                      
                 }
             ?>
     </div>

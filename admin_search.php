@@ -1,3 +1,6 @@
+<?php
+require 'utils/checkAuthorisation.php'; 
+?>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -16,7 +19,7 @@
                                 <a class="navbar-brand" href="admin.php"><b>FIND A ROOMIE</b></a>
                             </div>
                             <div class="nav navbar-nav navbar-right" id ="nav_list">
-                                <a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
+                                <a class="navbar-brand"href="login/login.php"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
                             </div>
                         </div>
                 </nav>

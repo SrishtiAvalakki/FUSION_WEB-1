@@ -1,3 +1,4 @@
+
 <?php
 require("./utils/connection.php");
 require("./login/loginPage.php");
@@ -5,22 +6,7 @@ $userId= $_SESSION["userid"];
 $groupId=$_SESSION["groupid"];
 
 if(isset($_POST['group__id'])) {
-    // $str="";
-    // $rows = array();
-    // //$groupIDs=$_GET['groupid'];
-    // $new_GID=$_SESSION["groupid"];
-    // $displayMessages="select messages.id,messages.groupId, messages.userId, messages.text, messages.sentTime, messages.likes, users.displayName from messages, users where messages.userId = users.id and messages.groupid =$new_GID order by messages.sentTime desc;";
-    // $result = $conn->query($displayMessages);
-    // if ($result-> num_rows > 0) {
-    //     while($row = $result->fetch_assoc()) {
-    //         $rows[] =$row;     
-    //     }
-    //     echo json_encode($rows);
-    // }
-    // else {
-    //     echo json_encode("No Messages");
-    // }
-    echo "success";
+     echo "success";
  
  }
 if(isset($_GET['groupid'])) {
@@ -49,7 +35,6 @@ if(isset($_GET['groupid'])) {
     $response = [];
     if ($result-> num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-            // $str=$row['name'];
             $response['name'][] = $row;
         }
        
@@ -62,10 +47,7 @@ if(isset($_GET['groupid'])) {
     $message = mysqli_real_escape_string($conn,$_POST['msg']);
     $insertQuery = "INSERT INTO `messages`(`groupId`, `userId`, `text`, `sentTime`) values ('$groupId','$userId','$message', now());";            
     $resultQuery = $conn -> query($insertQuery);   
-    //echo "success";
-    //echo "<script>alert()</script>";
-    // echo "console.log('jgjkhk');";
-    }
+ }
 
     if(isset($_POST['likes']))  {
         $msgId=$_POST["likes"];
@@ -99,7 +81,6 @@ if(isset($_GET['groupid'])) {
     
     $messageId=$_POST['message_id'];
     $comment = mysqli_real_escape_string($conn,$_POST['comment_msg']);
-   // echo $comment;
     if($comment!=NULL) {
     $insertComment="INSERT INTO `comments`(`messageId`, `text`, `sentTime`) VALUES ($messageId,\"$comment\",now());";
     $result1 = $conn->query($insertComment);
@@ -111,17 +92,13 @@ if(isset($_POST["message_idInt"]))  {
     $mes=$_POST["message_idInt"];
     $displayComment="SELECT comments.id,messages.Id,users.displayName,comments.text,comments.sentTime,comments.likes FROM `comments`,`messages`,`users` where messages.id=comments.messageId and messages.userId=users.id and comments.messageId=$mes";
     $result1 = $conn->query($displayComment);
-    //$records=[];
     if ($result1-> num_rows > 0) {
         $records=array();
         while($row = $result1->fetch_assoc()) {
-            // $str=$row['name'];
-                //$records.append($row);
-                array_push($records,$row);
+             array_push($records,$row);
         }
        
     }
-    //$response['name']=$records;
-    echo json_encode($records);
+     echo json_encode($records);
     }
  ?>

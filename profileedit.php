@@ -65,7 +65,7 @@ header
                                 <a class="navbar-brand"href="newup.php"><span class="glyphicon glyphicon-user"></span>My Profile</a>
                                 <a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
                                 <a class="navbar-brand" href="search.php"><span class="glyphicon glyphicon-search"></span>Search Users</a>
-                                <a class="navbar-brand"href="login/login.html"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
+                                <a class="navbar-brand"href="login/login.php"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
                             </div>
                         </div>
                 </nav>

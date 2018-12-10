@@ -3,7 +3,7 @@
 session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
-    $newURL = "login/login.html";
+    $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
 
@@ -31,7 +31,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 								<a href="groups/adminGroups.php">Manage Users/Groups</a>
                                 <a class="navbar-brand" href="admin_search.php"><span class="glyphicon glyphicon-search"></span>Search Users</a>
                                 <a href="admin_help.html">HELP</a>
-								<a href="login/login.html">Sign Out</a>
+								<a href="login/login.php">Sign Out</a>
 							</div>
 						</div>
         </div>

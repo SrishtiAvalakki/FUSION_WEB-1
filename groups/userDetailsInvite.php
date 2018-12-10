@@ -1,4 +1,7 @@
 <?php
+require '../utils/checkAuthorisation.php'; 
+?>
+<?php
 require("../utils/connection.php");
 require("../login/loginPage.php");
 $userId= $_SESSION["userid"];

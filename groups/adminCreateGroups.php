@@ -1,3 +1,6 @@
+<?php
+//require '../utils/checkAuthorisation.php'; 
+?>
 <html>
 <head>
 <meta charset="utf-8">
@@ -53,7 +56,6 @@ $(document).ready(function() {
         var groupType = $("input[name='isPrivate']:checked").val();
         var usersGroup = "";
         $.each($("input[name='members']:checked"), function(){            
-                //usersGroup.push($(this).attr('id'));
                 usersGroup = $(this).attr('id');
                 $.ajax({
                     url:'data.php',

@@ -3,7 +3,7 @@
 session_start();
 if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
     session_destroy();
-    $newURL = "login/login.html";
+    $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
 
@@ -28,34 +28,36 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 						</div>
                         </div>
                         <div class="row">
-			<div class="sidenav">
+			            <div id="star_rating">
+                        <div class="chatDiv" id="chatDiv" style="margin:100px">
            <script>
     $(document).ready(function(){
-             
                     $.ajax({
                         url:'ratingsCalc.php',
                         method:'POST',
                         datatype:'text',
                         data:{"noOfGroups":"noOfGroups"},
-                        
                         success:function(data){    
                            
-                             var obj = JSON.parse(data);
-                            // obj['name'].forEach(function(e){
-                            //     str += "<a class = 'link' id ='"+e['id']+"'>"+e['name']+"</a>";
-                            // });
-                            
-                            // $('.sidenav').html(str);
-                            console.log(obj);
-                            // $('.sidenav').html("<a class='inviteGroups'>INVITE GROUPS+</a>");
-                            //location.href = "index.php";
+                            var obj = JSON.parse(data);
+                             var groups_ratings=(obj[1]/obj[0])*100;
+                             var posts_ratings=(obj[3]/obj[2])*100;
+                              str="<table><thead><tr><th>Category</th><th>Rating</th></tr></thead><tbody><tr class='groups_rating'><td>Based On Number Of Groups</td><td><div class='stars-outer'><div class='stars-inner' style='width:"+groups_ratings+"%'></div></div></td></tr><tr class='posts_rating'><td>Based On Number Of Posts</td><td><div class='stars-outer'><div class='stars-inner' style='width:"+posts_ratings+"%'></div></div></td></tr></tbody></table>";
+                             $('.chatDiv').html(str);
+                             
+ 
+    
+        
+                          
                         }
                        
                     });
+                    
     });
+    
                         </script>
             </div>
-             <div class="chatDiv" style="margin-left:15%" id="chatDiv">
+            
             </div>
 
         </div>
