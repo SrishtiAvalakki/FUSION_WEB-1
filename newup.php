@@ -16,6 +16,24 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
   $msg = "";
 
   // If upload button is clicked ...
+  if (isset($_POST['gravatar']))
+  { $email = "";
+    $result6 = mysqli_query($db, "SELECT * FROM users where id='$userId'");
+   
+    while ($rowd1 = mysqli_fetch_array($result6)) {
+             $email = $rowd1['emailId'];
+        }
+
+        //$yravi = "yravi001@odu.edu";
+        $gravatar_link = 'http://www.gravatar.com/avatar/' . md5($email) . '?s=32';
+        
+        $sql ="UPDATE `users` SET `image`='$gravatar_link' WHERE id='$userId'";
+        mysqli_query($db, $sql);
+        header("Location:newup.php");
+
+        echo '<img src="' . $gravatar_link . '" class="bio-image" />';
+  
+}
   
   if (isset($_POST['upload']))
    {
@@ -220,6 +238,7 @@ echo "<h3 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."<
 
         <input type="hidden" name="size" value="1000">
         <input type="file" name="image"><br>
+        <button type="submit" name="gravatar" method="POST" action="newup.php" enctype="multipart/form-data">Gravatar</button>
         <button type="submit" name="upload" method="POST" action="newup.php" enctype="multipart/form-data">Update</button>
     </form>
 
