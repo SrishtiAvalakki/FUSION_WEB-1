@@ -79,7 +79,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
     else
      {
         echo '<script language="javascript">';
-        echo 'alert("image uploaded in the wrong format!")';
+        // echo 'alert("image uploaded in the wrong format!")';
         echo '</script>';
        
         } 
