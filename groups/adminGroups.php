@@ -29,7 +29,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							</div>
 							<div class="tabs" style="float: right;">
 						
-								<a href="../login/login.php">Sign Out</a>
+								<a href="../logout/logout.php">Sign Out</a>
 							</div>
 						</div>
         </div>

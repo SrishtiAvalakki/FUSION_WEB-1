@@ -2,10 +2,11 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 25, 2018 at 08:18 PM
--- Server version: 10.1.36-MariaDB
--- PHP Version: 7.2.11
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 10, 2018 at 11:25 PM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
+
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,6 +28,7 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comments`
 --
+
 CREATE DATABASE `roomies`;
 USE `roomies`;
 
@@ -73,10 +75,11 @@ CREATE TABLE IF NOT EXISTS `groups` (
 --
 
 INSERT INTO `groups` (`id`, `name`, `isPrivate`, `isArchived`) VALUES
-(1, 'Global', 0, 1),
-(2, 'PrivateGroup_Apt1', 1, 1),
-(3, 'PrivateGroup_Apt2', 1, 1),
-(4, 'roomies', 1, 0);
+(1, 'Global', 0, 0),
+(2, 'PrivateGroup_Apt1', 1, 0),
+(3, 'PrivateGroup_Apt2', 1, 0),
+(4, 'roomies', 1, 0),
+(7, 'srishti', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -95,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `messages` (
   PRIMARY KEY (`id`),
   KEY `message_fk01` (`groupId`),
   KEY `message_fk02` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `messages`
@@ -157,7 +160,12 @@ INSERT INTO `messages` (`id`, `groupId`, `userId`, `text`, `sentTime`, `likes`) 
 (65, 4, 1, 'hello', '2018-12-09 18:42:56', 0),
 (66, 1, 1, 'hey', '2018-12-09 19:24:20', 0),
 (67, 1, 1, 'heyy', '2018-12-09 19:26:28', 0),
-(68, 7, 1, 'hiii', '2018-12-09 19:53:17', 0);
+(68, 7, 1, 'hiii', '2018-12-09 19:53:17', 0),
+(69, 2, 0, 'hiiii', '2018-12-10 15:29:44', 0),
+(70, 3, 0, 'hello', '2018-12-10 15:29:52', 0),
+(71, 3, 0, 'hello', '2018-12-10 15:29:53', 0),
+(72, 4, 0, 'aaasssssuupppp', '2018-12-10 15:30:14', 0),
+(73, 1, 0, 'hi', '2018-12-10 15:38:20', 0);
 
 -- --------------------------------------------------------
 
@@ -254,13 +262,13 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `gender`, `dob`, `about`, `hobbies`, `bio`, `pno`, `country`, `image`, `groups`, `Posts`) VALUES
-(0, 'shreya', 'shreya', '@shreya', 'shreya@odu.edu', 'F', '2018-11-12', 'admin', 'admin', 'admin', 123456789, 'admin', 'images/profile05c0dbc0dc21a14.60491464.jpg', NULL, NULL),
-(1, 'Tow Mater', 'Tow Mater', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', '', '', '', 0, '', 'images/profile15c0daebb7cf413.79630332.jpg', 80, 40),
+(0, 'admin', 'admin', '@fusionweb', 'admin@odu.edu', 'F', '2018-11-12', 'admin', 'admin', 'admin', 123456789, 'admin', 'images/profile05c0dbc0dc21a14.60491464.jpg', NULL, NULL),
+(1, 'Tow Mater', 'hello', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', 'hello', 'hello', 'hello', 34567890, 'australia', 'images/profile15c0daebb7cf413.79630332.jpg', 80, 40),
 (2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'tom_and_jerry_PNG53.png', 5, 70),
 (3, 'Doc Hudson', 'Doc Hudson', '@doc', 'hornet@rsprings.gov', 'M', '2009-10-18', '', '', '', 0, '', '35.jpg', 1, 60),
 (4, 'Finn McMissile', 'Finn McMissile', '@mcmissile', 'topsecret@agent.org', 'M', '2000-10-18', '', '', '', 0, '', '35.jpg', 3, 40),
 (5, 'Lightning McQueen', 'Lightning McQueen', '@mcqueen', 'kachow@rusteze.com', 'F', '1995-10-18', '', '', '', 0, '', 'Hannible.jpg', 2, 20),
-(6, 'hello', 'Pagal', 'Srishti@96', 'srishtilakki@gmail.com', 'm', '1996-01-19', 'i am a dancer ', 'watching movies', 'no bio yet ', 762025433, 'bangladesh', 'nibbles_tomandjerry_965.JPG', 3, 10);
+(6, 'Shreya Varadaraj', 'Shreya', '@shreya', 'svara001@odu.edu', 'F', '1996-01-19', 'i am a dancer ', 'watching movies', 'no bio yet ', 762025433, 'bangladesh', 'nibbles_tomandjerry_965.JPG', 3, 10);
 
 --
 -- Constraints for dumped tables

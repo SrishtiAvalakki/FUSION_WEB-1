@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-session_start();
+require "getGravatar.php";
 if(!isset($_SESSION['authSatisified'])) {
     header('Location: '.'login/login.php');
 }
@@ -122,7 +122,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							<a href="newup.php">Profile</a>
 								<a href="groups/groups.php">Create Group</a>
 								<a href="help.html">HELP</a>
-								<a href="login/login.php">Sign Out</a>
+								<a href="logout/logout.php">Sign Out</a>
 							</div>
 						</div>
         </div>
@@ -177,6 +177,14 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                             if(obj['displayName']!=null)
                             {
                                 var image = obj['text'];
+                                var displayName = "<?php echo $_SESSION['displayname'] ?>";
+                                if (obj['displayName'] == displayName) {
+                                    var gravatarURL = "<?php echo $_SESSION['gravatarURL'] ?>";
+                                    console.log(gravatarURL);
+                                    if (gravatarURL != null) {
+                                        obj['image'] = gravatarURL;
+                                    }
+                                }
                                 result = image.match(/[^"\'=\s]+\.(jpg|png|jpeg)/);
                                 if(result!=null){
                                     if(obj['isArchived']==='1'){
