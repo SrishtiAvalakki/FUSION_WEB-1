@@ -1,7 +1,7 @@
 <html>
 <?php
 require "checkAccess.php";
-if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
+if(!isset($_SESSION['authSatisified'])){
     session_destroy();
     $newURL = "login/login.php";
     header('Location: '.$newURL);
