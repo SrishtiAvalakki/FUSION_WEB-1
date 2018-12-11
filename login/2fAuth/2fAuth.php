@@ -4,7 +4,7 @@ require 'Authenticator.php';
 $authenticator = new Authenticator();
 
 
-if(isset($_SESSION['2faAuth']))
+if(isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin']))
     if ($_SESSION['userid'] == '0') {
         header('Location: ../../admin.php');
     }
