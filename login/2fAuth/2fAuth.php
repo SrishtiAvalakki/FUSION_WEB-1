@@ -1,7 +1,6 @@
 <?php
 session_start();
-require 'Authenticator.php';
-$authenticator = new Authenticator();
+
 
 
 if(isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin']))
@@ -12,7 +11,8 @@ if(isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin']))
         header('Location: ../../index.php');
     }
 
-
+    require 'Authenticator.php';
+    $authenticator = new Authenticator();
 if (!isset($_SESSION['auth_secret'])) {
     $secret = $authenticator->generateRandomSecret();
     $_SESSION['auth_secret'] = $secret;

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
 require "getGravatar.php";
+$_SESSION['2faAuth'] = 'true';
+
 if(!isset($_SESSION['authSatisified'])) {
     header('Location: '.'login/login.php');
 }
