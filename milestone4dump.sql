@@ -267,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`id`, `username`, `displayName`, `password`, `emailId`, `gender`, `dob`, `about`, `hobbies`, `bio`, `pno`, `country`, `image`, `groups`, `Posts`) VALUES
 (0, 'admin', 'admin', '@fusionweb', 'admin@odu.edu', 'F', '2018-11-12', 'admin', 'admin', 'admin', 123456789, 'admin', 'images/profile05c0dbc0dc21a14.60491464.jpg', NULL, NULL),
 (1, 'Tow Mater', 'hello', '@mater', 'mater@rsprings.gov', 'M', '2011-12-18', 'hello', 'hello', 'hello', 34567890, 'australia', 'images/profile15c0daebb7cf413.79630332.jpg', 80, 40),
-(2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'tom_and_jerry_PNG53.png', 5, 70),
+(2, 'Sally Carrera', 'Sally Carrera', '@sally', 'porsche@rsprings.gov', 'F', '2011-10-18', '', '', '', 0, '', 'images/tom_and_jerry_PNG53.png', 5, 70),
 (3, 'Doc Hudson', 'Doc Hudson', '@doc', 'hornet@rsprings.gov', 'M', '2009-10-18', '', '', '', 0, '', '35.jpg', 1, 60),
 (4, 'Finn McMissile', 'Finn McMissile', '@mcmissile', 'topsecret@agent.org', 'M', '2000-10-18', '', '', '', 0, '', '35.jpg', 3, 40),
 (5, 'Lightning McQueen', 'Lightning McQueen', '@mcqueen', 'kachow@rusteze.com', 'F', '1995-10-18', '', '', '', 0, '', 'Hannible.jpg', 2, 20),
