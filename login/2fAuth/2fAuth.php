@@ -1,16 +1,17 @@
 <?php
 session_start();
-if(isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin'])){
+var_dump($_SESSION['2faAuth']);
+echo $_SESSION['2faAuth'];
+if (isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin'])) {
     if ($_SESSION['userid'] == '0') {
         header('Location: ../../admin.php');
-    }
-    else{
+    } else {
         header('Location: ../../index.php');
     }
 }
 
-    require 'Authenticator.php';
-    $authenticator = new Authenticator();
+require 'Authenticator.php';
+$authenticator = new Authenticator();
 if (!isset($_SESSION['auth_secret'])) {
     $secret = $authenticator->generateRandomSecret();
     $_SESSION['auth_secret'] = $secret;
