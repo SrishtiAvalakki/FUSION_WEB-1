@@ -200,10 +200,17 @@ echo "<h3 class=sm-heading><p class='text-secondary'>About</p>".$row['about']."<
     <form method="POST" action="newup.php" enctype="multipart/form-data">
         
         <?php
+        session_start();
         while ($row_img = mysqli_fetch_array($result))
          {
-             echo "<img src='".$row_img['image']."' class='bio-image' >";
-         }
+             if(isset($_SESSION['githubLogin'])){
+                 $url = $_SESSION['gravatarURL'];
+                 echo "<img src='".$url."' class='bio-image' >";
+             } else{
+                echo "<img src='".$row_img['image']."' class='bio-image' >";
+             }
+            
+            }
         ?>
 
         <input type="hidden" name="size" value="1000">
