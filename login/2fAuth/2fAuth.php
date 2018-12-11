@@ -3,6 +3,16 @@ session_start();
 require 'Authenticator.php';
 $authenticator = new Authenticator();
 
+
+if(isset($_SESSION['authSatisified']))
+    if ($_SESSION['userid'] == '0') {
+        header('Location: ../admin.php');
+    }
+    else{
+        header('Location: ../index.php');
+    }
+
+
 if (!isset($_SESSION['auth_secret'])) {
     $secret = $authenticator->generateRandomSecret();
     $_SESSION['auth_secret'] = $secret;
