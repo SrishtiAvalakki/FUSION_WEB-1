@@ -4,7 +4,7 @@ require 'Authenticator.php';
 $authenticator = new Authenticator();
 
 
-if(isset($_SESSION['authSatisified']))
+if(isset($_SESSION['2faAuth']))
     if ($_SESSION['userid'] == '0') {
         header('Location: ../../admin.php');
     }

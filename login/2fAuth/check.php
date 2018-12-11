@@ -10,6 +10,7 @@ $authenticator = new Authenticator();
 $checkResult = $authenticator->verifyCode($_SESSION['auth_secret'], $_POST['authenticatorCode'], 0);
 
 if ($checkResult) {
+    $_SESSION['2faAuth'] = 'true';
     if ($_SESSION["userid"] === 0) {
         header('Location: ' . '../../admin.php');
         exit();
