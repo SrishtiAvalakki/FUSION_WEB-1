@@ -185,7 +185,11 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
                                 if (obj['displayName'] == displayName) {
                                     var gravatarURL = "<?php echo $_SESSION['gravatarURL'] ?>";
                                     console.log(gravatarURL);
-                                    if (gravatarURL != null) {
+                                    var ifgravatar = "<?php echo isset($_SESSION['gravatarURL'])?>";
+                                    console.log(gravatarURL == '');
+                                    console.log(ifgravatar != false);
+                                    console.log(ifgravatar);
+                                    if (ifgravatar != false) {
                                         obj['image'] = gravatarURL;
                                     }
                                 }
