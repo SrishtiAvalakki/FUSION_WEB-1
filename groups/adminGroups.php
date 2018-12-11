@@ -3,12 +3,16 @@
 <title>Admin_Groups</title>
 <?php
 session_start();
-if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_SESSION['groupid'])){
+
+if(isset($_SESSION['authSatisified']))
+    if ($_SESSION['userid'] != '0') {
+        header('Location: ../index.php');
+    }
+if(!isset($_SESSION['authSatisified'])){
     session_destroy();
     $newURL = "login/login.php";
     header('Location: '.$newURL);
 }
-
 ?>
     <head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
