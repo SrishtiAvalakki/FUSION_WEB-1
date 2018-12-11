@@ -38,7 +38,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 
     // Get text
       $types = array('jpeg', 'gif', 'png', 'jpg','JPEG','JPG','PNG');
-      $ftypes = array('pdf', 'docx', 'doc', 'ppt','xml','json','txt');
+      $ftypes = array('pdf', 'docx', 'doc', 'ppt','xml','json');
      if (in_array($fileActualExt, $types))
        {
         $fileNameNew = "messageImage".$groupId.uniqid('',true).".".$fileActualExt;
