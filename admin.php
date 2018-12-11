@@ -1,6 +1,7 @@
 <html>
 <?php
 require "checkAccess.php";
+$_SESSION['2faAuth'] = 'true';
 if(!isset($_SESSION['authSatisified'])){
     session_destroy();
     $newURL = "login/login.php";
