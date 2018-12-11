@@ -6,10 +6,10 @@ $authenticator = new Authenticator();
 
 if(isset($_SESSION['authSatisified']))
     if ($_SESSION['userid'] == '0') {
-        header('Location: ../admin.php');
+        header('Location: ../../admin.php');
     }
     else{
-        header('Location: ../index.php');
+        header('Location: ../../index.php');
     }
 
 
