@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <?php
-//require '../utils/checkAuthorisation.php'; 
+if(isset($_SESSION['authSatisified']))
+if ($_SESSION['userid'] != '0') {
+    header('Location: ../index.php');
+}
+if(!isset($_SESSION['authSatisified'])){
+session_destroy();
+$newURL = "../login/login.php";
+header('Location: '.$newURL);
+}
 ?>
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
