@@ -22,6 +22,7 @@ if ($result->num_rows > 0) {
         $_SESSION["displayname"] = $row['displayName'];
         $_SESSION['authSatisified'] = 'true';
         $_SESSION['githubLogin'] = 'true';
+        $_SESSION['2faAuth'] = 'true';
         header('Location: admin.php');
        exit();
     }
