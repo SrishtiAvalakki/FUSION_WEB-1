@@ -1,0 +1,58 @@
+<html>
+  <head>
+       <link rel= "stylesheet" href="style/home_style.css" media ="all"/>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+  </head>
+  <body>
+  <nav class="navbar navbar-inverse" id="nav_bar">
+						<div class= "container-fluid">
+							<div class="navbar-header">
+								<a class="navbar-brand" href="search.php"><b>FIND A ROOMIE</b></a>
+							</div>
+							<div class="nav navbar-nav navbar-right" id ="nav_list">
+								<a class="navbar-brand" href="profileedit.php"><span class="glyphicon glyphicon-user"></span>Edit Profile</a>
+								<a class="navbar-brand" href="groups/groups.php">Create<span class="glyphicon glyphicon-cog"></span>Group</a>
+								<a class="navbar-brand" href="index.php">Cancel</a>
+								<a class="navbar-brand" href="logout/logout.php"><span class="glyphicon glyphicon-log-out"></span>Sign Out</a>
+							</div>
+						</div>
+     </nav>
+  <h3><b><u>Our Location</u></b></h3>
+    <h4> Contact: (phone) +1 757-632-2958
+    <br> Address: 1055W,48th Street,Norfolk,VA-23508.</h4>
+    
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var norfolk = {lat: +36.8867913, lng: -76.3029578};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: norfolk
+        });
+        var marker = new google.maps.Marker({
+          position: norfolk,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpJltk7G4M2douCfM_AdNzJvrHKyZh2uE&callback=initMap">
+    </script>
+    </div>
+  </body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Groups</title>
+<link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
 <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>

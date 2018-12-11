@@ -10,6 +10,7 @@ require "checkIfAlreadyLoggedIn.php";
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="github_login/bootstrap-social-links.css">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.png"/>
 </head>
 <style>
     input[type=text], select {

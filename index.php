@@ -120,7 +120,8 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
 							</div>
 							<div class="tabs" style="float: right;">
 							<a href="newup.php">Profile</a>
-								<a href="groups/groups.php">Create Group</a>
+                                <a href="groups/groups.php">Create Group</a>
+                                <a href="contact_details.html">CONTACT US</a>
 								<a href="help.html">HELP</a>
 								<a href="logout/logout.php">Sign Out</a>
 							</div>

@@ -100,6 +100,7 @@ if(!isset($_SESSION['displayname']) || !isset($_SESSION['userid']) || !isset($_S
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
     crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
 
 
 <title>My Profile</title>
