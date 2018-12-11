@@ -106,9 +106,11 @@ body {
                         Sign in with Github
                     </a>
                 </div>
+                <!--localhost-->
                 <!-- <div class="g-recaptcha" data-sitekey="6LdKiHwUAAAAAJanuKKjNvd_GJlgH_fDGDrxdSIB"></div> -->
                 <!-- <div class="g-recaptcha" data-sitekey="6LfJHXwUAAAAAKzyMdDRETNST_k5LHCOXXMwyQHO" data-callback="reCaptchad"></div> -->
-                <!-- <div class="g-recaptcha" data-sitekey="6LfJHXwUAAAAAKzyMdDRETNST_k5LHCOXXMwyQHO"></div>  -->
+                <!--docker-->
+                 <div class="g-recaptcha" data-sitekey="6LfJHXwUAAAAAKzyMdDRETNST_k5LHCOXXMwyQHO"></div> 
 
             </form>
 
