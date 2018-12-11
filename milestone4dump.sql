@@ -3,10 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 10, 2018 at 11:25 PM
+-- Generation Time: Dec 11, 2018 at 07:40 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
-
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,7 +27,6 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `comments`
 --
-
 CREATE DATABASE `roomies`;
 USE `roomies`;
 
@@ -68,18 +66,19 @@ CREATE TABLE IF NOT EXISTS `groups` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `groups`
 --
 
 INSERT INTO `groups` (`id`, `name`, `isPrivate`, `isArchived`) VALUES
-(1, 'Global', 0, 0),
-(2, 'PrivateGroup_Apt1', 1, 0),
-(3, 'PrivateGroup_Apt2', 1, 0),
+(1, 'Global', 0, 1),
+(2, 'PrivateGroup_Apt1', 1, 1),
+(3, 'PrivateGroup_Apt2', 1, 1),
 (4, 'roomies', 1, 0),
-(7, 'srishti', 0, 0);
+(7, 'srishti', 0, 0),
+(10, 'hello', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -182,7 +181,7 @@ CREATE TABLE IF NOT EXISTS `usergroupmapping` (
   UNIQUE KEY `id` (`userId`,`groupId`),
   KEY `UserGroupMapping_fk01` (`userId`),
   KEY `UserGroupMapping_fk02` (`groupId`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `usergroupmapping`
@@ -194,10 +193,12 @@ INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
 (16, 0, 3),
 (18, 0, 4),
 (30, 0, 7),
+(80, 0, 10),
 (2, 1, 1),
 (8, 1, 2),
 (17, 1, 4),
 (29, 1, 7),
+(79, 1, 10),
 (3, 2, 1),
 (9, 2, 2),
 (23, 2, 4),
@@ -210,11 +211,13 @@ INSERT INTO `usergroupmapping` (`id`, `userId`, `groupId`) VALUES
 (11, 4, 2),
 (27, 4, 4),
 (35, 4, 7),
+(81, 4, 10),
 (6, 5, 1),
+(12, 5, 3),
+(85, 5, 10),
 (78, 6, 1),
 (60, 6, 2),
-(48, 6, 3),
-(12, 5, 3);
+(48, 6, 3);
 
 -- --------------------------------------------------------
 
