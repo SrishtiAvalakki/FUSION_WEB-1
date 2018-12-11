@@ -10,7 +10,7 @@ if(isset($_SESSION['authSatisified']))
     }
 if(!isset($_SESSION['authSatisified'])){
     session_destroy();
-    $newURL = "login/login.php";
+    $newURL = "../login/login.php";
     header('Location: '.$newURL);
 }
 ?>
