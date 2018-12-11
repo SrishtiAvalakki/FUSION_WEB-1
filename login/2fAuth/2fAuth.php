@@ -1,7 +1,6 @@
 <?php
 session_start();
-var_dump($_SESSION['2faAuth']);
-echo $_SESSION['2faAuth'];
+if (isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin'])) {
 if (isset($_SESSION['2faAuth']) || isset($_SESSION['githubLogin'])) {
     if ($_SESSION['userid'] == '0') {
         header('Location: ../../admin.php');
